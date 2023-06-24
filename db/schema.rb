@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_23_234645) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_24_160050) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -66,8 +66,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_23_234645) do
   create_table "job_applications", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "job_id", null: false
-    t.text "cover_letter"
-    t.text "resume_file_path"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -1,6 +1,5 @@
 class JobsController < ApplicationController
-
-
+  before_action :require_login
   def index
     @jobs = Job.all
   end

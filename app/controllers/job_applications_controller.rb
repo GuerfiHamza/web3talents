@@ -11,7 +11,7 @@ class JobApplicationsController < ApplicationController
 
   def create
     @job = Job.friendly.find(params[:job_id])
-    @application = JobApplication.new(application_params)
+    @application = JobApplication.new
     @application.user = current_user
     @application.job = @job
     @application.status = "pending"

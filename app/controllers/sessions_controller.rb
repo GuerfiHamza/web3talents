@@ -11,7 +11,6 @@ class SessionsController < ApplicationController
 
     # users are indexed by eth address here
     user = User.find_by(eth_address: params[:eth_address])
-
     # if the user with the eth address is on record, proceed
     if user.present?
 
@@ -85,7 +84,7 @@ class SessionsController < ApplicationController
     else
 
       # user not found in database
-      redirect_to signup_path, alert: "No such user exists, try to sign up!"
+      redirect_to signup_path, notice: "No such user exists, try to sign up!"
     end
   end
 
