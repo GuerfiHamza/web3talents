@@ -1,0 +1,31 @@
+<div class="bg-gray-100">
+  <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-none">
+      <div class="overflow-hidden bg-white sm:rounded-lg sm:shadow">
+        <div class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6">
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Job Applications</h3>
+        </div>
+        <ul role="list" class="divide-y divide-gray-200">
+          <% @applications.each do |app| %>
+            <li>
+              <%= link_to job_job_application_path(app.job, app) do %>
+                <div class="px-4 py-4 sm:px-6 hover:bg-gray-50 transation duration-300">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center justify-between">
+                    <img class="h-10 w-10 rounded-full mr-3" src="<%= app.user.profile_picture %>" alt="">
+                      <div>
+                        <div class="truncate text font-medium text-indigo-600"><%= app.user.username %></div>
+                        <small class=" text-indigo-600 truncate"><%= app.job.title %></small>
+                      </div>
+                    </div>
+                    <small><%= time_ago_in_words(app.created_at) %></small>
+                  </div>
+                </div>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

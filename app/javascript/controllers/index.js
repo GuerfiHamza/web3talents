@@ -6,3 +6,8 @@ import { application } from "./application"
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import SessionsController from "./sessions_controller"
+application.register("sessions", SessionsController)
+import Notification from 'stimulus-notification'
+application.register('notification', Notification)

@@ -1,7 +1,33 @@
 Rails.application.routes.draw do
-  root to: "pages#home"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  root "pages#home"
+
+  resources :users, only: [:show, :edit]
+  resources :posts, only: [:index, :show, :new, :create, :destroy] do
+    resources :comments, only: [:create]
+  end
+  resources :comments, only: [:destroy]
+  resources :likes, only: [:destroy]
+
+  resources :jobs, only: [:index, :show, :new, :edit, :create, :destroy] do
+    resources :job_applications, only: [:index, :show, :new, :edit, :create]
+  end
+  resources :job_applications, only: [:destroy]
+
+  resources :likes, only: %i[create destroy]
+  resources :feed
+  get "signup", to: "users#new"
+  post "signup", to: "users#create"
+  get "login", to: "sessions#new"
+  post "login", to: "sessions#create"
+  delete "logout", to: "sessions#destroy"
+  post "logout", to: "sessions#destroy"
+  get "logout", to: "sessions#destroy"
+
+  # api to fetch nonces for users
+  namespace :api do
+    namespace :v1 do
+      resources :users
+    end
+  end
 end
