@@ -2,7 +2,7 @@ require "eth"
 
 class UsersController < ApplicationController
 
-  before_action :require_login, only: [:show]
+before_action :require_login, only: [:show]
 
   # instantiate a new user
   def new
