@@ -1,15 +1,71 @@
 <div class="bg-gray-100 h-full">
-  <div class="container mx-auto overflow-hidden bg-white shadow sm:rounded-lg">
+  <div class="container-xl mx-auto overflow-hidden bg-white shadow sm:rounded-lg">
     <div class="px-4 py-5 sm:px-6 -ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
       <div class="ml-4 mt-4">
         <h3 class="text-lg font-medium leading-6 text-gray-900"><%= @job.title %></h3>
       </div>
-      <div class="ml-4 mt-4 flex-shrink-0">
-        <%= link_to "Apply", new_job_job_application_path(@job), class: "relative inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+      <div data-controller="modal" data-modal-allow-background-close="false">
+        <!-- Modal Container -->
+        <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard" class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+          <!-- Modal Inner Container -->
+          <div class="max-h-screen w-full max-w-lg relative">
+            <!-- Modal Card -->
+            <div class="m-1 bg-white rounded shadow">
+              <div class="p-8">
+                <h2 class="text-xl mb-4">Apply for <%= @job.title %></h2>
+                <%= simple_form_for [@job, @job_application] do |f| %>
+                  <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                    <div class="mt-1 flex rounded-md shadow-sm">
+                      <input type="text" name="username" id="username" autocomplete="username" class="block w-full min-w-0 flex-grow rounded-none rounded-r-md border-gray-300 focus:border-sky-500 focus:ring-sky-500 sm:text-sm" value="<%= current_user.username %>">
+                    </div>
+                  </div>
+                  <div>
+                    <label for="experience" class="block text-sm font-medium text-gray-700">experience</label>
+                    <div class="mt-1 flex rounded-md shadow-sm">
+                      <input type="text" name="experience" id="experience" autocomplete="experience" class="block w-full min-w-0 flex-grow rounded-none rounded-r-md border-gray-300 focus:border-sky-500 focus:ring-sky-500 sm:text-sm" value="<%= current_user.experience %>">
+                    </div>
+                  </div>
+                  <div>
+                    <label for="skills" class="block text-sm font-medium text-gray-700">skills</label>
+                    <div class="mt-1 flex rounded-md shadow-sm">
+                      <input type="text" name="skills" id="skills" autocomplete="skills" class="block w-full min-w-0 flex-grow rounded-none rounded-r-md border-gray-300 focus:border-sky-500 focus:ring-sky-500 sm:text-sm" value="<%= current_user.skills %>">
+                    </div>
+                  </div>
+                  <div>
+                    <label for="twitter" class="block text-sm font-medium text-gray-700">twitter</label>
+                    <div class="mt-1 flex rounded-md shadow-sm">
+                      <input type="text" name="twitter" id="twitter" autocomplete="twitter" class="block w-full min-w-0 flex-grow rounded-none rounded-r-md border-gray-300 focus:border-sky-500 focus:ring-sky-500 sm:text-sm" value="<%= current_user.twitter %>">
+                    </div>
+                  </div>
+                  <div>
+                    <label for="discord" class="block text-sm font-medium text-gray-700">discord</label>
+                    <div class="mt-1 flex rounded-md shadow-sm">
+                      <input type="text" name="discord" id="discord" autocomplete="discord" class="block w-full min-w-0 flex-grow rounded-none rounded-r-md border-gray-300 focus:border-sky-500 focus:ring-sky-500 sm:text-sm" value="<%= current_user.discord %>">
+                    </div>
+                  </div>
+                  <%= f.submit "Apply" %>
+                <% end %>
+                <div class="flex justify-end items-center flex-wrap mt-6">
+                  <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-action="click->modal#close">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ml-4 mt-4 flex-shrink-0">
+          <a href="#" data-action="click->modal#open" class="relative inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" >
+            <span>Apply</span>
+          </a>
+        </div>
       </div>
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
       <dl class="sm:divide-y sm:divide-gray-200">
+            <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">Recruiter</dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @job.user.username %></dd>
+        </div>
         <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
           <dt class="text-sm font-medium text-gray-500">Project Name</dt>
           <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @job.project_name %></dd>

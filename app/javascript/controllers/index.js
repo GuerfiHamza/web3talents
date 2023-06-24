@@ -11,3 +11,5 @@ import SessionsController from "./sessions_controller"
 application.register("sessions", SessionsController)
 import Notification from 'stimulus-notification'
 application.register('notification', Notification)
+import { Modal } from "tailwindcss-stimulus-components"
+application.register('modal', Modal)
