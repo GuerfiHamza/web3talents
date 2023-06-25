@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root "pages#home"
 
-  resources :users, only: [:show, :edit]
+  resources :users, only: [:show, :edit, :update]
   resources :posts, only: [:index, :show, :new, :create, :destroy] do
     resources :comments, only: [:create]
   end
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :jobs, only: [:index, :show, :new, :edit, :create, :destroy] do
     resources :job_applications, only: [:index, :show, :new, :edit, :create]
   end
-  resources :job_applications, only: [:destroy]
+  resources :job_applications, only: [:destroy, :update]
 
   resources :likes, only: %i[create destroy]
   resources :feed

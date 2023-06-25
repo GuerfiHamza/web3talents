@@ -1,11 +1,10 @@
 class JobApplication < ApplicationRecord
   belongs_to :user
   belongs_to :job
-  validates :cover_letter, :resume_file_path, presence: true
   validates :status, presence: true, inclusion: { in: %w(pending accepted rejected) }
-  validates :cover_letter, length: { minimum: 1 }
   # validate :job_owner_cannot_apply
 
+  # STATUS = %w(pending accepted rejected)
   # def job_owner_cannot_apply
   #   if job.user_id == user_id
   #     errors.add(:user_id, "can't be the same as job owner")

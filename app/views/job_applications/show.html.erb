@@ -5,6 +5,7 @@
         <h3 class="text-lg font-medium leading-6 text-gray-900"><%= @application.user.username %></h3>
       </div>
       <div class="ml-4 mt-4 flex-shrink-0">
+      dm
       </div>
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
@@ -15,39 +16,50 @@
         </div>
         <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
           <dt class="text-sm font-medium text-gray-500">Status</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @application.status %></dd>
+          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+            <%= simple_form_for @application, data: { controller: 'autosave', autosave_delay_value: '1000'} do |f| %>
+              <%= f.input :status, collection: JobApplication::statuses_for_select, selected: @application.status || JobApplication::statuses.first, input_html: { data: { action: 'change->autosave#save' }, class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6" }, label:false %>
+            <% end %>
+          </dd>
         </div>
-          <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">Attachments</dt>
-        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-          <ul role="list" class="divide-y divide-gray-200 rounded-md border border-gray-200">
-            <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
-              <div class="flex w-0 flex-1 items-center">
-                <!-- Heroicon name: mini/paper-clip -->
-                <svg class="h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M15.621 4.379a3 3 0 00-4.242 0l-7 7a3 3 0 004.241 4.243h.001l.497-.5a.75.75 0 011.064 1.057l-.498.501-.002.002a4.5 4.5 0 01-6.364-6.364l7-7a4.5 4.5 0 016.368 6.36l-3.455 3.553A2.625 2.625 0 119.52 9.52l3.45-3.451a.75.75 0 111.061 1.06l-3.45 3.451a1.125 1.125 0 001.587 1.595l3.454-3.553a3 3 0 000-4.242z" clip-rule="evenodd" />
-                </svg>
-                <span class="ml-2 w-0 flex-1 truncate">resume_back_end_developer.pdf</span>
+        <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">Skills</dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @application.user.skills.pluck("name").join(", ") %></dd>
+        </div>
+        <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+          <dt class="text-sm font-medium text-gray-500">Experiences</dt>
+          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+            <div class="px-4 sm:px-6 lg:px-8">
+              <div class="flow-root">
+                <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                  <div class="inline-block min-w-full align-middle">
+                    <table class="min-w-full divide-y divide-gray-300">
+                      <thead>
+                        <tr>
+                          <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">Title</th>
+                          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Project Name</th>
+                          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Social_links</th>
+                          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Description</th>
+                        </tr>
+                      </thead>
+                      <tbody class="bg-white">
+                        <% @application.user.experiences.each do |exp| %>
+                          <!-- Odd row -->
+                          <tr class="border-b">
+                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3"><%= exp.title %></td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= exp.project_name %></td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= exp.social_links %></td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= exp.description %></td>
+                          </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
-              <div class="ml-4 flex-shrink-0">
-                <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
-              </div>
-            </li>
-            <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
-              <div class="flex w-0 flex-1 items-center">
-                <!-- Heroicon name: mini/paper-clip -->
-                <svg class="h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M15.621 4.379a3 3 0 00-4.242 0l-7 7a3 3 0 004.241 4.243h.001l.497-.5a.75.75 0 011.064 1.057l-.498.501-.002.002a4.5 4.5 0 01-6.364-6.364l7-7a4.5 4.5 0 016.368 6.36l-3.455 3.553A2.625 2.625 0 119.52 9.52l3.45-3.451a.75.75 0 111.061 1.06l-3.45 3.451a1.125 1.125 0 001.587 1.595l3.454-3.553a3 3 0 000-4.242z" clip-rule="evenodd" />
-                </svg>
-                <span class="ml-2 w-0 flex-1 truncate">coverletter_back_end_developer.pdf</span>
-              </div>
-              <div class="ml-4 flex-shrink-0">
-                <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
-              </div>
-            </li>
-          </ul>
-        </dd>
-      </div>
+            </div>
+          </dd>
+        </div>
         <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
           <dt class="text-sm font-medium text-gray-500">Links</dt>
           <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">

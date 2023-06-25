@@ -13,7 +13,6 @@ export default class extends Controller {
   static targets = [ "inputEthMessage", "inputEthAddress", "inputEthSignature", "formNewSession", "formNewUser", "buttonEthConnect" ]
 
   connect() {
-    console.log("Hello, Stimulus!", this.element)
     // the read-only eth fields, we process them automatically
     if (this.hasFormNewSessionTarget) {
       console.log("action: NewSession")
@@ -36,12 +35,9 @@ export default class extends Controller {
   }
 
   async signUpWithEth() {
-    // get the user form for submission later
     this.buttonEthConnectTarget.disabled = true;
-    // request accounts from ethereum provider
     const accounts = await this.requestAccounts();
     const etherbase = accounts[0];
-    // populate and submit form
     this.inputEthAddressTarget.value = etherbase;
     this.formNewUserTarget.submit();
   }
@@ -83,7 +79,6 @@ export default class extends Controller {
 
   // get nonce from /api/v1/users/ by account
   async getUuidByAccount(account) {
-    console.log("getUuidByAccount: " + account);
     const response = await fetch("/api/v1/users/" + account);
     const nonceJson = await response.json();
     if (!nonceJson) return null;

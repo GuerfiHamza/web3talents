@@ -12,6 +12,8 @@ Comment.destroy_all
 # Connection.destroy_all
 # Event.destroy_all
 # Hashtag.destroy_all
+Skill.destroy_all
+Experience.destroy_all
 Job.destroy_all
 Like.destroy_all
 Post.destroy_all
@@ -22,6 +24,8 @@ User.destroy_all
 require "faker"
 
 chain_list = ['Ethereum', 'Polygon', 'Solana', 'Binance Smart Chain', 'Avalanche', 'Fantom', 'Harmony', 'Kusama', 'Polkadot', 'Celo', 'Near', 'Tezos', 'Klaytn', 'Tron', 'Waves', 'EOS', 'Algorand', 'Stellar', 'Cardano', 'Other']
+
+
 
 random_skills = [
   "Ruby",
@@ -310,9 +314,7 @@ random_experience = [
     profile_picture: Faker::Avatar.image,
     cover_picture: Faker::Avatar.image,
     summary: Faker::Quote.famous_last_words,
-    experience: [random_experience.sample, random_experience.sample, random_experience.sample],
     job: [random_jobs.sample, random_jobs.sample, random_jobs.sample],
-    skills: [random_skills.sample, random_skills.sample, random_skills.sample],
     website: Faker::Internet.url,
     twitter: Faker::Internet.url,
     discord: Faker::Internet.url
@@ -348,30 +350,6 @@ end
 
 puts "Created #{Job.count} jobs"
 
-# connect some users to users
-
-# User.all.each do |user|
-#   Connection.create!(
-#     user_id: user.id,
-#     connected_user_id: User.all.sample.id,
-#     status: "accepted"
-#   )
-# end
-
-# puts "Created #{Connection.count} connections"
-
-# generate some likes
-
-# Post.all.each do |post|
-#   Like.create!(
-#     user_id: User.all.sample.id,
-#     post_id: post.id,
-#     count: rand(1..10)
-#   )
-# end
-
-# puts "Created #{Like.count} likes"
-
 # generate some comments
 
 Post.all.each do |post|
@@ -391,8 +369,6 @@ Job.all.each do |job|
     JobApplication.create!(
       user_id: User.all.sample.id,
       job_id: job.id,
-      cover_letter: Faker::Lorem.paragraph(sentence_count: 1, supplemental: true, random_sentences_to_add: 2),
-      resume_file_path: Faker::File.file_name(dir: 'path/to'),
       status: "pending"
     )
   end
@@ -402,12 +378,39 @@ puts "Created #{JobApplication.count} applications"
 
 # generate some likes
 
-50.times do
-Like.create!(
-  user_id: User.all.sample.id,
-  post_id: Post.all.sample.id,
-  likeable_type: "Post"
-)
+# 50.times do
+# Like.create!(
+#   user: User.all.sample.id,
+#   post: Post.all.sample.id,
+#   likeable_type: "Post"
+# )
+# end
+
+# puts "Created #{Like.count} likes"
+
+# generate skills to users
+
+User.all.each do |user|
+  3.times do
+    Skill.create!(
+      user_id: user.id,
+      name: random_skills.sample
+    )
+  end
 end
 
-puts "Created #{Like.count} likes"
+puts "Created #{Skill.count} skills"
+
+# generate experiences to users
+
+User.all.each do |user|
+  3.times do
+    Experience.create!(
+      user_id: user.id,
+      title: random_experience.sample,
+      project_name: Faker::Company.name,
+      social_links: Faker::Internet.url,
+      description: Faker::Quote.famous_last_words
+    )
+  end
+end

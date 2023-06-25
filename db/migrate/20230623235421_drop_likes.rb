@@ -1,8 +1,10 @@
 class DropLikes < ActiveRecord::Migration[7.0]
   def change
     drop_table :likes
+
     create_table :likes do |t|
       t.integer :user_id
+
       t.references :likeable, polymorphic: true, index: true
 
       t.timestamps

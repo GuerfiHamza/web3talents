@@ -36,6 +36,9 @@ gem 'sorcery'
 gem "faker"
 gem 'friendly_id', '~> 5.4.0'
 gem "tailwindcss-rails"
+gem "cocoon"
+gem 'jquery-rails'
+gem "cloudinary"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
