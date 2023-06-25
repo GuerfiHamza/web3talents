@@ -5,7 +5,6 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-
 # delete all data from the database
 JobApplication.destroy_all
 Comment.destroy_all
@@ -24,8 +23,6 @@ User.destroy_all
 require "faker"
 
 chain_list = ['Ethereum', 'Polygon', 'Solana', 'Binance Smart Chain', 'Avalanche', 'Fantom', 'Harmony', 'Kusama', 'Polkadot', 'Celo', 'Near', 'Tezos', 'Klaytn', 'Tron', 'Waves', 'EOS', 'Algorand', 'Stellar', 'Cardano', 'Other']
-
-
 
 random_skills = [
   "Ruby",
@@ -305,16 +302,36 @@ random_experience = [
   "Data Engineer",
   "Senior Data Engineer",
 ]
+
+random_banners = [
+  "https://images8.alphacoders.com/131/1318148.png",
+  "https://images.alphacoders.com/131/1318416.png",
+  "https://images.alphacoders.com/131/1318412.png",
+  "https://images8.alphacoders.com/131/1318523.png",
+  "https://images.alphacoders.com/131/1318300.png",
+  "https://images.alphacoders.com/131/1317738.png",
+  "https://images8.alphacoders.com/129/1298087.jpg",
+  "https://images4.alphacoders.com/710/710501.png",
+  "https://images8.alphacoders.com/131/1318410.png",
+  "https://images4.alphacoders.com/129/1293106.png",
+  "https://images.alphacoders.com/129/1291412.jpg",
+  "https://images3.alphacoders.com/109/109509.jpg",
+  "https://images3.alphacoders.com/116/1163420.jpg",
+]
+
+# make 20 users
+
+puts "Creating users..."
 20.times do
   User.create!(
     username: Faker::Internet.username,
     eth_address: Faker::Blockchain::Ethereum.address,
     eth_nonce: Faker::Crypto.sha256,
     headline: Faker::Quote.famous_last_words,
-    profile_picture: Faker::Avatar.image,
-    cover_picture: Faker::Avatar.image,
     summary: Faker::Quote.famous_last_words,
-    job: [random_jobs.sample, random_jobs.sample, random_jobs.sample],
+    profile_picture: Faker::Avatar.image,
+    cover_picture: random_banners.sample,
+    job: random_jobs.sample,
     website: Faker::Internet.url,
     twitter: Faker::Internet.url,
     discord: Faker::Internet.url
@@ -340,7 +357,7 @@ puts "Created #{Post.count} posts"
   Job.create!(
     user_id: User.all.sample.id,
     title: Faker::Job.title,
-    project_name: Faker::Company.name,
+    company: Faker::Company.name,
     twitter_link: Faker::Internet.url,
     discord_invite: Faker::Internet.url,
     description: Faker::Quote.famous_last_words,
@@ -408,7 +425,7 @@ User.all.each do |user|
     Experience.create!(
       user_id: user.id,
       title: random_experience.sample,
-      project_name: Faker::Company.name,
+      company: Faker::Company.name,
       social_links: Faker::Internet.url,
       description: Faker::Quote.famous_last_words
     )
