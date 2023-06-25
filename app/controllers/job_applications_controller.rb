@@ -23,7 +23,7 @@ class JobApplicationsController < ApplicationController
   end
 
   def show
-    @application = JobApplication.find(params[:id])
+    @application = JobApplication.includes(:user).find(params[:id])
   end
 
   def edit
@@ -39,12 +39,12 @@ class JobApplicationsController < ApplicationController
   def update
     @application = JobApplication.find(params[:id])
     @application.update(application_params)
-    redirect_to job_job_applications_path, notice: "Application updated!"
+    redirect_to job_job_applications_path(@application), notice: "Application updated!"
   end
 
   private
 
   def application_params
-    params.require(:job_application).permit(:cover_letter, :resume_file_path)
+    params.require(:job_application).permit(:status)
   end
 end

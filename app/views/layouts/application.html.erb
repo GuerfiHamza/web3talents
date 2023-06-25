@@ -9,11 +9,13 @@
 
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "jquery" %>
 
   </head>
 
   <body class="h-full">
         <main data-controller="sessions">
+  
         <%= render "shared/navbar" %>
         <%= render "shared/flashes" %>
         <%= yield %>

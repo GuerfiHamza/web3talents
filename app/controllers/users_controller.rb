@@ -39,7 +39,7 @@ before_action :require_login, only: [:show]
 
           # save to database
           if @user.save
-
+            session[:modal] = true
             # if user is created, congratulations, send them to login
             redirect_to login_path, notice: "Successfully created an account, you may now log in."
           else
@@ -73,7 +73,7 @@ before_action :require_login, only: [:show]
     if @user.update(update_user_params)
       redirect_to @user, notice: "Successfully updated your profile."
     else
-      render :edit
+      render :edit, status: 422, notice: "Failed to update your profile."
     end
   end
 
@@ -85,7 +85,8 @@ before_action :require_login, only: [:show]
   private
 
   def update_user_params
-    params.require(:user).permit(:username, :headline, :profile_picture, :cover_picture, :summary, :experience, :job, :skills, :website, :discord, :twitter)
+    params.require(:user).permit(:username, :headline, :profile_picture, :cover_picture, :summary, :job, :website, :discord, :twitter,
+       experiences_attributes: [:id, :_destroy, :title, :project_name, :social_links, :description], skills_attributes: [:id, :_destroy, :name])
   end
 
   # only allow user to control name, message, signature, and address

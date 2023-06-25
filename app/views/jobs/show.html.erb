@@ -1,5 +1,5 @@
-<div class="bg-gray-100 h-full">
-  <div class="container-xl mx-auto overflow-hidden bg-white shadow sm:rounded-lg">
+<div class="bg-gray-100 h-full mt-24 container mx-auto">
+  <div class=" overflow-hidden bg-white shadow sm:rounded-lg">
     <div class="px-4 py-5 sm:px-6 -ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
       <div class="ml-4 mt-4">
         <h3 class="text-lg font-medium leading-6 text-gray-900"><%= @job.title %></h3>
@@ -14,6 +14,21 @@
               <div class="p-8">
                 <h2 class="text-xl mb-4">Apply for <%= @job.title %></h2>
                 <%= simple_form_for [@job, @job_application] do |f| %>
+                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                  <div class="sm:col-span-3">
+                    <label for="twitter" class="block text-sm font-medium leading-6 text-gray-900">Twitter</label>
+                    <div class="mt-2">
+                      <input type="text" name="twitter" id="twitter" autocomplete="discord" value="<%= current_user.twitter %>" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                  </div>
+                  <div class="sm:col-span-3">
+                    <label for="discord" class="block text-sm font-medium leading-6 text-gray-900">Discord</label>
+                    <div class="mt-2">
+                      <input type="text" name="discord" id="discord" autocomplete="discord" value="<%= current_user.discord %>" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    </div>
+                  </div>
+                </div>
+
                   <div>
                     <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
                     <div class="mt-1 flex rounded-md shadow-sm">
@@ -21,34 +36,35 @@
                     </div>
                   </div>
                   <div>
-                    <label for="experience" class="block text-sm font-medium text-gray-700">experience</label>
-                    <div class="mt-1 flex rounded-md shadow-sm">
-                      <input type="text" name="experience" id="experience" autocomplete="experience" class="block w-full min-w-0 flex-grow rounded-none rounded-r-md border-gray-300 focus:border-sky-500 focus:ring-sky-500 sm:text-sm" value="<%= current_user.experience %>">
+                    <label for="experience" class="block text-md font-medium text-gray-700">Experiences</label>
+                    <div class="mt-1 flex rounded-md shadow-sm mb-5">
+                      <ol>
+
+                    <% current_user.experiences.each do |exp| %>
+                      <li><%= exp.title %></li>
+                    <% end %>
+                      </ol>
+
                     </div>
                   </div>
                   <div>
-                    <label for="skills" class="block text-sm font-medium text-gray-700">skills</label>
+                    <label for="skills" class="block text-md font-medium text-gray-700">skills</label>
                     <div class="mt-1 flex rounded-md shadow-sm">
-                      <input type="text" name="skills" id="skills" autocomplete="skills" class="block w-full min-w-0 flex-grow rounded-none rounded-r-md border-gray-300 focus:border-sky-500 focus:ring-sky-500 sm:text-sm" value="<%= current_user.skills %>">
+                    <ol>
+                    <% current_user.skills.each do |skill| %>
+                      <li><%= skill.name %></li>
+                      <% end %>
+                    </ol>
                     </div>
                   </div>
-                  <div>
-                    <label for="twitter" class="block text-sm font-medium text-gray-700">twitter</label>
-                    <div class="mt-1 flex rounded-md shadow-sm">
-                      <input type="text" name="twitter" id="twitter" autocomplete="twitter" class="block w-full min-w-0 flex-grow rounded-none rounded-r-md border-gray-300 focus:border-sky-500 focus:ring-sky-500 sm:text-sm" value="<%= current_user.twitter %>">
-                    </div>
-                  </div>
-                  <div>
-                    <label for="discord" class="block text-sm font-medium text-gray-700">discord</label>
-                    <div class="mt-1 flex rounded-md shadow-sm">
-                      <input type="text" name="discord" id="discord" autocomplete="discord" class="block w-full min-w-0 flex-grow rounded-none rounded-r-md border-gray-300 focus:border-sky-500 focus:ring-sky-500 sm:text-sm" value="<%= current_user.discord %>">
-                    </div>
-                  </div>
-                  <%= f.submit "Apply" %>
-                <% end %>
-                <div class="flex justify-end items-center flex-wrap mt-6">
+
+                  <div class="flex justify-end items-center flex-wrap mt-6">
+                  <%= f.submit "Apply", class:"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-5" %>
+
                   <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-action="click->modal#close">Close</button>
                 </div>
+                <% end %>
+
               </div>
             </div>
           </div>
@@ -62,7 +78,7 @@
     </div>
     <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
       <dl class="sm:divide-y sm:divide-gray-200">
-            <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+        <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
           <dt class="text-sm font-medium text-gray-500">Recruiter</dt>
           <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @job.user.username %></dd>
         </div>
