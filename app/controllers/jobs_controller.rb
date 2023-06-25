@@ -44,6 +44,6 @@ class JobsController < ApplicationController
   private
 
   def job_params
-    params.require(:job).permit(:title, :project_name, :twitter_link, :discord_invite, :description, :chain)
+    params.require(:job).permit(:title, :company, :twitter_link, :discord_invite, :description, :chain)
   end
 end

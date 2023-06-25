@@ -10,9 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_25_135804) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_25_143408) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string "namespace"
+    t.text "body"
+    t.string "resource_type"
+    t.bigint "resource_id"
+    t.string "author_type"
+    t.bigint "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -77,7 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_135804) do
   create_table "experiences", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", null: false
-    t.string "project_name", null: false
+    t.string "company", null: false
     t.string "social_links"
     t.text "description"
     t.datetime "created_at", null: false
@@ -115,7 +129,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_135804) do
   create_table "jobs", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "title"
-    t.string "project_name"
+    t.string "company"
     t.string "twitter_link"
     t.string "discord_invite"
     t.string "os_link"
@@ -171,7 +185,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_135804) do
     t.string "profile_picture", default: ""
     t.string "cover_picture", default: ""
     t.string "summary", default: ""
-    t.text "job", default: [], array: true
+    t.text "job", default: ""
     t.text "website", default: ""
     t.string "twitter", default: ""
     t.string "discord", default: ""
@@ -181,6 +195,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_25_135804) do
     t.string "remember_me_token"
     t.datetime "remember_me_token_expires_at"
     t.string "slug"
+    t.boolean "admin", default: false, null: false
     t.index ["eth_address"], name: "index_users_on_eth_address", unique: true
     t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
     t.index ["slug"], name: "index_users_on_slug", unique: true

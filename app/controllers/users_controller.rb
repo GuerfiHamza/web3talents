@@ -2,11 +2,16 @@ require "eth"
 
 class UsersController < ApplicationController
 
-before_action :require_login, only: [:show]
+  before_action :require_login, only: [:show]
 
   # instantiate a new user
   def new
-    @user = User.new
+    if current_user
+      redirect_to user_path(current_user), notice: "You are already logged in."
+    else
+      @user = User.new
+      redirect_to login_path
+    end
   end
 
   def edit
@@ -70,10 +75,11 @@ before_action :require_login, only: [:show]
   # update user based on user input
   def update
     @user = User.friendly.find(params[:id])
+    @user.slug = update_user_params[:username]
     if @user.update(update_user_params)
       redirect_to @user, notice: "Successfully updated your profile."
     else
-      render :edit, status: 422, notice: "Failed to update your profile."
+      render :edit, status: :unprocessable_entity , alert: "Failed to update your profile."
     end
   end
 
@@ -86,7 +92,7 @@ before_action :require_login, only: [:show]
 
   def update_user_params
     params.require(:user).permit(:username, :headline, :profile_picture, :cover_picture, :summary, :job, :website, :discord, :twitter,
-       experiences_attributes: [:id, :_destroy, :title, :project_name, :social_links, :description], skills_attributes: [:id, :_destroy, :name])
+       experiences_attributes: [:id, :_destroy, :title, :company, :social_links, :description], skills_attributes: [:id, :_destroy, :name])
   end
 
   # only allow user to control name, message, signature, and address

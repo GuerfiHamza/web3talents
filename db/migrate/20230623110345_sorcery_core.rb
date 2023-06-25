@@ -8,9 +8,7 @@ class SorceryCore < ActiveRecord::Migration[7.0]
       t.string :profile_picture, default: ""
       t.string :cover_picture, default: ""
       t.string :summary, default: ""
-      t.text :experience, default: "", array: true, default: []
-      t.text :job, default: "", array: true, default: []
-      t.text :skills, default: "", array: true, default: []
+      t.text :job, default: ""
       t.text :website, default: ""
       t.string :twitter, default: ""
       t.string :discord, default: ""
