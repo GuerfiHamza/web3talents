@@ -6,12 +6,8 @@ class UsersController < ApplicationController
 
   # instantiate a new user
   def new
-    if current_user
-      redirect_to user_path(current_user), notice: "You are already logged in."
-    else
+
       @user = User.new
-      redirect_to login_path
-    end
   end
 
   def edit
