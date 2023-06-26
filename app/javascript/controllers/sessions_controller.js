@@ -10,7 +10,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = [ "inputEthMessage", "inputEthAddress", "inputEthSignature", "formNewSession", "formNewUser", "buttonEthConnect" ]
+  static targets = [ "inputEthMessage", "inputEthAddress", "inputEthSignature", "formNewSession", "formNewUser", "buttonEthConnect", "inputEthModal" ]
 
   connect() {
     // the read-only eth fields, we process them automatically
@@ -61,7 +61,9 @@ export default class extends Controller {
       this.formNewSessionTarget.submit();
     } else {
       // should have some error handling here
-      this.inputEthMessageTarget.value = "Please sign up first!";
+      this.inputEthModalTarget.classList.remove("hidden");
+      this.inputEthModalTarget.classList.add("flex");
+      this.inputEthModalTarget.value = "Please sign up first!";
     }
   }
 

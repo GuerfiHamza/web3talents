@@ -1,8 +1,8 @@
-<div class="bg-gray-100 h-full mt-24 container mx-auto">
-  <div class=" overflow-hidden bg-white shadow sm:rounded-lg">
+<div class="bg-gray-900 h-full mt-24 container mx-auto">
+  <div class=" overflow-hidden bg-gray-800 shadow sm:rounded-lg">
     <div class="px-4 py-5 sm:px-6 -ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
       <div class="ml-4 mt-4">
-        <h3 class="text-lg font-medium leading-6 text-gray-900"><%= @job.title %></h3>
+        <h3 class="text-lg font-medium leading-6 text-white"><%= @job.title %></h3>
       </div>
       <div data-controller="modal" data-modal-allow-background-close="false">
         <!-- Modal Container -->
@@ -10,19 +10,23 @@
           <!-- Modal Inner Container -->
           <div class="max-h-screen w-full max-w-lg relative">
             <!-- Modal Card -->
-            <div class="m-1 bg-white rounded shadow">
+            <div class="m-1 bg-gray-800 rounded shadow">
               <div class="p-8">
-                <h2 class="text-xl mb-4">Apply for <%= @job.title %></h2>
+                <h2 class="text-xl mb-4 text-white">Apply for <%= @job.title %></h2>
                 <%= simple_form_for [@job, @job_application] do |f| %>
-                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                  <div class="flex justify-end items-center flex-wrap mt-6">
+
+                  <%= link_to "Edit your information", edit_user_path(current_user), class:"relative inline-flex right-0 items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+                  </div>
+                <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                   <div class="sm:col-span-3">
-                    <label for="twitter" class="block text-sm font-medium leading-6 text-gray-900">Twitter</label>
+                    <label for="twitter" class="block text-sm font-medium leading-6 text-white">Twitter</label>
                     <div class="mt-2">
                       <input type="text" name="twitter" id="twitter" autocomplete="discord" value="<%= current_user.twitter %>" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
                   </div>
                   <div class="sm:col-span-3">
-                    <label for="discord" class="block text-sm font-medium leading-6 text-gray-900">Discord</label>
+                    <label for="discord" class="block text-sm font-medium leading-6 text-white">Discord</label>
                     <div class="mt-2">
                       <input type="text" name="discord" id="discord" autocomplete="discord" value="<%= current_user.discord %>" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                     </div>
@@ -30,38 +34,45 @@
                 </div>
 
                   <div>
-                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                    <label for="username" class="block text-sm font-medium text-white">Username</label>
                     <div class="mt-1 flex rounded-md shadow-sm">
-                      <input type="text" name="username" id="username" autocomplete="username" class="block w-full min-w-0 flex-grow rounded-none rounded-r-md border-gray-300 focus:border-sky-500 focus:ring-sky-500 sm:text-sm" value="<%= current_user.username %>">
+                      <input type="text" name="username" id="username" autocomplete="username" value="<%= current_user.username %>" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+
                     </div>
                   </div>
                   <div>
-                    <label for="experience" class="block text-md font-medium text-gray-700">Experiences</label>
+                    <label for="experience" class="block text-md font-medium text-white">Experiences</label>
                     <div class="mt-1 flex rounded-md shadow-sm mb-5">
                       <ol>
 
+                    <% if current_user.experiences.empty? %>
+                      <li class="text-white">No experiences added yet</li>
+                    <% end %>
                     <% current_user.experiences.each do |exp| %>
-                      <li><%= exp.title %></li>
+                      <li class="text-white font-bold"><%= exp.title %></li>
                     <% end %>
                       </ol>
 
                     </div>
                   </div>
                   <div>
-                    <label for="skills" class="block text-md font-medium text-gray-700">skills</label>
+                    <label for="skills" class="block text-md font-medium text-white">Skills</label>
                     <div class="mt-1 flex rounded-md shadow-sm">
                     <ol>
+                    <% if current_user.skills.empty? %>
+                      <li class="text-white">No skills added yet</li>
+                    <% end %>
                     <% current_user.skills.each do |skill| %>
-                      <li><%= skill.name %></li>
+                      <li class="text-white font-bold"><%= skill.name %></li>
                       <% end %>
                     </ol>
                     </div>
                   </div>
 
                   <div class="flex justify-end items-center flex-wrap mt-6">
-                  <%= f.submit "Apply", class:"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-5" %>
+                  <%= f.submit "Apply", class:"relative inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mr-5" %>
 
-                  <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-action="click->modal#close">Close</button>
+                  <button class="relative inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" data-action="click->modal#close">Close</button>
                 </div>
                 <% end %>
 
@@ -79,28 +90,24 @@
     <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
       <dl class="sm:divide-y sm:divide-gray-200">
         <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Recruiter</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @job.user.username %></dd>
+          <dt class="text-sm font-medium text-white">Recruiter</dt>
+          <dd class="mt-1 text-sm text-white sm:col-span-2 sm:mt-0"><%= @job.user.username %></dd>
         </div>
         <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Project Name</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @job.company %></dd>
+          <dt class="text-sm font-medium text-white">Project Name</dt>
+          <dd class="mt-1 text-sm text-white sm:col-span-2 sm:mt-0"><%= @job.company %></dd>
         </div>
         <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Chain</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @job.chain %></dd>
+          <dt class="text-sm font-medium text-white">Chain</dt>
+          <dd class="mt-1 text-sm text-white sm:col-span-2 sm:mt-0"><%= @job.chain %></dd>
         </div>
         <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Recruiter</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @job.user.username %></dd>
+          <dt class="text-sm font-medium text-white">Description</dt>
+          <dd class="mt-1 text-sm text-white sm:col-span-2 sm:mt-0"><%= @job.description %></dd>
         </div>
         <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Description</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= @job.description %></dd>
-        </div>
-        <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-          <dt class="text-sm font-medium text-gray-500">Links</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+          <dt class="text-sm font-medium text-white">Links</dt>
+          <dd class="mt-1 text-sm text-white sm:col-span-2 sm:mt-0">
             <div class="ml-2 flex items-center text-sm text-gray-500 flex gap-1">
               <a href="<%= @job.twitter_link %>" target="_blank">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="126.444 2.281 589 589" id="twitter"><circle cx="420.944" cy="296.781" r="294.5" fill="#2daae1"></circle><path fill="#fff" d="M609.773 179.634c-13.891 6.164-28.811 10.331-44.498 12.204 16.01-9.587 28.275-24.779 34.066-42.86a154.78 154.78 0 0 1-49.209 18.801c-14.125-15.056-34.267-24.456-56.551-24.456-42.773 0-77.462 34.675-77.462 77.473 0 6.064.683 11.98 1.996 17.66-64.389-3.236-121.474-34.079-159.684-80.945-6.672 11.446-10.491 24.754-10.491 38.953 0 26.875 13.679 50.587 34.464 64.477a77.122 77.122 0 0 1-35.097-9.686v.979c0 37.54 26.701 68.842 62.145 75.961-6.511 1.784-13.344 2.716-20.413 2.716-4.998 0-9.847-.473-14.584-1.364 9.859 30.769 38.471 53.166 72.363 53.799-26.515 20.785-59.925 33.175-96.212 33.175-6.25 0-12.427-.373-18.491-1.104 34.291 21.988 75.006 34.824 118.759 34.824 142.496 0 220.428-118.052 220.428-220.428 0-3.361-.074-6.697-.236-10.021a157.855 157.855 0 0 0 38.707-40.158z"></path></svg>

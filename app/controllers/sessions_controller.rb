@@ -5,11 +5,6 @@ class SessionsController < ApplicationController
 
   # no need to initialize the session
   def new
-    if current_user
-      redirect_to user_path(current_user), notice: "You are already logged in."
-    else
-      redirect_to login_path
-    end
   end
 
   # logs in a user using an ethereum account

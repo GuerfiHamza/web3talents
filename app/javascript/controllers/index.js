@@ -22,3 +22,6 @@ import Autosave from 'stimulus-rails-autosave'
 application.register('autosave', Autosave)
 import TextareaAutogrow from 'stimulus-textarea-autogrow'
 application.register('textarea-autogrow', TextareaAutogrow)
+
+import { Dropdown } from "tailwindcss-stimulus-components"
+application.register('dropdown', Dropdown)

@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 # delete all data from the database
+require "open-uri"
+
 JobApplication.destroy_all
 Comment.destroy_all
 # Connection.destroy_all
@@ -323,33 +325,34 @@ random_banners = [
 
 puts "Creating users..."
 20.times do
-  User.create!(
+  user = User.new(
     username: Faker::Internet.username,
     eth_address: Faker::Blockchain::Ethereum.address,
     eth_nonce: Faker::Crypto.sha256,
     headline: Faker::Quote.famous_last_words,
     summary: Faker::Quote.famous_last_words,
-    profile_picture: Faker::Avatar.image,
     cover_picture: random_banners.sample,
     job: random_jobs.sample,
     website: Faker::Internet.url,
     twitter: Faker::Internet.url,
     discord: Faker::Internet.url
   )
+  user.profile_picture.attach(io: URI.open("https://i.pravatar.cc/150?img=#{rand(1..60)}"), filename: "#{user.username}.png", content_type: 'image/png')
+  user.save!
 end
 
 puts "Created #{User.count} users"
 
 # make 50 posts
 
-50.times do
-  Post.create!(
-    user_id: User.all.sample.id,
-    body: Faker::Lorem.paragraph(sentence_count: 2, supplemental: true, random_sentences_to_add: 4)
-  )
-end
+# 50.times do
+#   Post.create!(
+#     user_id: User.all.sample.id,
+#     body: Faker::Lorem.paragraph(sentence_count: 2, supplemental: true, random_sentences_to_add: 4)
+#   )
+# end
 
-puts "Created #{Post.count} posts"
+# puts "Created #{Post.count} posts"
 
 # make 50 jobs
 
@@ -369,15 +372,15 @@ puts "Created #{Job.count} jobs"
 
 # generate some comments
 
-Post.all.each do |post|
-  Comment.create!(
-    user_id: User.all.sample.id,
-    post_id: post.id,
-    body: Faker::Lorem.paragraph(sentence_count: 1, supplemental: true, random_sentences_to_add: 2)
-  )
-end
+# Post.all.each do |post|
+#   Comment.create!(
+#     user_id: User.all.sample.id,
+#     post_id: post.id,
+#     body: Faker::Lorem.paragraph(sentence_count: 1, supplemental: true, random_sentences_to_add: 2)
+#   )
+# end
 
-puts "Created #{Comment.count} comments"
+# puts "Created #{Comment.count} comments"
 
 # generate some applications
 
