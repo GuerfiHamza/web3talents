@@ -19,6 +19,7 @@ class JobApplicationsController < ApplicationController
     @application.job = @job
     @application.status = "pending"
     authorize @application
+
     if @application.save
       redirect_to job_job_applications_path, notice: "Application submitted!"
     else
@@ -28,6 +29,10 @@ class JobApplicationsController < ApplicationController
 
   def show
     @application = JobApplication.includes(:user, :experiences, :skills).find(params[:id])
+    if current_user
+      current_user.notifications.mark_as_read!
+      @notifications = current_user.notifications.reverse
+    end
     authorize @application
   end
 

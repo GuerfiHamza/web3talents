@@ -50,4 +50,12 @@ class ApplicationPolicy
 
     attr_reader :user, :scope
   end
+
+  def signup?
+    true
+  end
+
+  def login?
+    true
+  end
 end

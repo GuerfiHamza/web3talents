@@ -13,7 +13,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :skills, reject_if: :all_blank, allow_destroy: true
   has_one_attached :profile_picture
   has_one_attached :cover_picture
-
+  has_many :notifications, as: :recipient, dependent: :destroy
   extend FriendlyId
 
   friendly_id :username, use: :slugged

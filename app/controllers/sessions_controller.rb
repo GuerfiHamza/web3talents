@@ -5,6 +5,8 @@ class SessionsController < ApplicationController
 
   # no need to initialize the session
   def new
+    authorize :application, :login?
+
   end
 
   # logs in a user using an ethereum account
@@ -87,6 +89,8 @@ class SessionsController < ApplicationController
       # user not found in database
       redirect_to signup_path, notice: "No such user exists, try to sign up!"
     end
+    authorize :application, :login?
+
   end
 
   # logs out the user
