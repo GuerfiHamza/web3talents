@@ -1,0 +1,7 @@
+<div>
+  <% if unread %>
+    <span>Unread</span>
+  <% end %>
+  <span><%= job_application.job.user.username %></span>
+  <%= job_application.status %> your application for <%= job_application.job.title %>
+</div>

@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   def new
 
       @user = User.new
+      authorize :application, :signup?
   end
 
   def edit
@@ -66,6 +67,8 @@ class UsersController < ApplicationController
       flash.now[:alert] = "Please choose a name (length > 0)!"
       render :new
     end
+    authorize :application, :signup?
+
   end
 
   # update user based on user input

@@ -85,3 +85,6 @@
     </dl>
   </div>
 </div>
+   <%= turbo_frame_tag "notifications" do %>
+        <%= render "notifications/notifications", user: current_user %>
+      <% end %>

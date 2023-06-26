@@ -5,12 +5,13 @@ class JobApplicationPolicy < ApplicationPolicy
     def resolve
       scope.all
     end
+
   end
+
 
   def index?
-    record.job.user == user
+  true
   end
-
   def new?
     true
   end
@@ -20,7 +21,7 @@ class JobApplicationPolicy < ApplicationPolicy
   end
 
   def show?
-    record.user == user || record.job.user == user
+    true
   end
 
   def edit?
@@ -32,10 +33,10 @@ class JobApplicationPolicy < ApplicationPolicy
   end
 
   def update?
-    record.job.user == user
+    true
   end
 
   private
 
-  
+
 end

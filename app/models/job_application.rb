@@ -5,6 +5,23 @@ class JobApplication < ApplicationRecord
 
   has_many :experiences, through: :user
   has_many :skills, through: :user
+  has_noticed_notifications
+  after_update_commit { broadcast_notifications }
+
+  private
+
+  def broadcast_notifications
+    return if user == job.user
+      JobApplicationNotification.with(message: self).deliver_later(user)
+    broadcast_prepend_to "notifications_#{job.user.id}",
+                          target: "notifications_#{job.user.id}",
+                          partial: "notifications/notification",
+                          locals: {user:, unread: true }
+  end
+
+  def job_owner?
+    user == job.user
+  end
   # validate :job_owner_cannot_apply
 
   # STATUS = %w(pending accepted rejected)
