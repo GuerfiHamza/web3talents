@@ -1,9 +1,10 @@
 <% if current_user %>
-  <div class="container">
-    <h6>Notifications</h6>
+
+<% $notifications = current_user.notifications.reverse.first(5) %>
+  <div class="container text-xs p-3">
     <%= turbo_stream_from "notifications_#{user.id}" %>
     <%= turbo_frame_tag "notifications_#{user.id}" do %>
-      <% @notifications.each do |notification| %>
+      <% $notifications.each do |notification| %>
         <%= render notification,
                     user: notification.to_notification.creator,
                     job: notification.to_notification.job,

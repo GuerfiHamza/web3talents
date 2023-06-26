@@ -13,6 +13,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.friendly.find(params[:id])
+    authorize @user
   end
 
   # create a new user based on user input
@@ -75,6 +76,7 @@ class UsersController < ApplicationController
   def update
     @user = User.friendly.find(params[:id])
     @user.slug = update_user_params[:username]
+    authorize @user
     if @user.update(update_user_params)
       redirect_to @user, notice: "Successfully updated your profile."
     else
@@ -85,6 +87,7 @@ class UsersController < ApplicationController
   # show user profile
   def show
     @user = User.friendly.find(params[:id])
+    authorize @user
   end
 
   private

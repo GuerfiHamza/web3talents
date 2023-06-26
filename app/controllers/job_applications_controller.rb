@@ -1,4 +1,7 @@
 class JobApplicationsController < ApplicationController
+
+  before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
+
   def index
     @job = Job.friendly.find(params[:job_id])
     @applications = policy_scope(JobApplication).where(job: @job).order(created_at: :desc)
@@ -29,10 +32,7 @@ class JobApplicationsController < ApplicationController
 
   def show
     @application = JobApplication.includes(:user, :experiences, :skills).find(params[:id])
-    if current_user
-      current_user.notifications.mark_as_read!
-      @notifications = current_user.notifications.reverse
-    end
+
     authorize @application
   end
 
