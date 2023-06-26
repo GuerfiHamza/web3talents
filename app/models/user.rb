@@ -14,6 +14,10 @@ class User < ApplicationRecord
   has_one_attached :profile_picture
   has_one_attached :cover_picture
   has_many :notifications, as: :recipient, dependent: :destroy
+  has_many :conversations, through: :messages
+  has_many :sent_conversations, foreign_key: 'sender_id', class_name: 'Conversation', dependent: :destroy
+  has_many :received_conversations, foreign_key: 'recipient_id', class_name: 'Conversation', dependent: :destroy
+  
   extend FriendlyId
 
   friendly_id :username, use: :slugged

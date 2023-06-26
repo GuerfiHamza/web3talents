@@ -1,0 +1,5 @@
+<div id="messages">
+  <% @conversation.messages.each do |message| %>
+    <p><strong><%= message.sender.name %>:</strong> <%= message.content %></p>
+  <% end %>
+</div>

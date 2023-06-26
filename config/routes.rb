@@ -17,6 +17,11 @@ Rails.application.routes.draw do
   resources :job_applications, only: [:destroy, :update]
 
   resources :myapplications, only: [:index]
+  # config/routes.rb
+  resources :conversations, only: [:index, :create, :show] do
+    post 'create_message', on: :member
+  end
+
 
   # resources :likes, only: %i[create destroy]
   # resources :feed

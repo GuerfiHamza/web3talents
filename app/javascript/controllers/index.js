@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import ChatroomSubscriptionController from "./chatroom_subscription_controller"
+application.register("chatroom-subscription", ChatroomSubscriptionController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
@@ -25,3 +28,5 @@ application.register('textarea-autogrow', TextareaAutogrow)
 
 import { Dropdown } from "tailwindcss-stimulus-components"
 application.register('dropdown', Dropdown)
+
+console.log("Hello from StimulusJS")

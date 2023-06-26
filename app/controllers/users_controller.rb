@@ -87,6 +87,9 @@ class UsersController < ApplicationController
   # show user profile
   def show
     @user = User.friendly.find(params[:id])
+    recipient = User.friendly.find(params[:id])
+    conversation = Conversation.new(sender: current_user, recipient: recipient)
+
     authorize @user
   end
 

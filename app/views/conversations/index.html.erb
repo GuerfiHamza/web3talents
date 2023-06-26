@@ -1,0 +1,7 @@
+<h1>My Conversations</h1>
+
+<ul>
+  <% @conversations.each do |conversation| %>
+    <li><%= link_to conversation.recipient.username, conversation %></li>
+  <% end %>
+</ul>
