@@ -1,14 +1,13 @@
-
 <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
   <div class="mx-auto max-w-none">
     <div class="overflow-hidden bg-gray-800 sm:rounded-lg sm:shadow">
       <div class="border-b border-gray-700 bg-gray-800 px-4 py-5 sm:px-6">
-        <h3 class="text-lg font-medium leading-6 text-white">Job Applications</h3>
+        <h3 class="text-lg font-medium leading-6 text-white">My Applications</h3>
       </div>
       <ul role="list" class="divide-y divide-gray-700">
         <% @applications.each do |app| %>
           <li>
-            <%= link_to job_job_application_path(app.job, app) do %>
+            <%= link_to job_path(app.job) do %>
               <div class="px-4 py-4 sm:px-6 hover:bg-gray-700 transation duration-300">
                 <div class="flex items-center justify-between">
                   <div class="flex items-center justify-between">
@@ -22,7 +21,21 @@
                       <small class=" text-white truncate"><%= app.job.title %></small>
                     </div>
                   </div>
-                  <small class="text-white"><%= time_ago_in_words(app.created_at) %></small>
+                  <small class="text-white text-center">
+                      <% if policy(app).destroy? %>
+                      <%= link_to job_job_application_path(app.job, app), method: :delete, data: { confirm: "Are you sure?" } do %>
+                        <span class="py-3 px-3 rounded bg-red-500"> Delete</span>
+                      <% end %>
+                    <% end %>
+                    <% if app.status == "pending" %>
+                      <span class="py-3 px-3 rounded bg-yellow-500"><%= app.status.capitalize %> </span>
+                    <% elsif app.status == "accepted" %>
+                      <span class="py-3 px-3 rounded bg-green-500"><%= app.status.capitalize %> </span>
+                    <% else %>
+                      <span class="py-3 px-3 rounded bg-red-500"><%= app.status.capitalize %> </span>
+                    <% end %>
+
+                  </small>
                 </div>
               </div>
             <% end %>

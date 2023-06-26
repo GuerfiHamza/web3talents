@@ -24,9 +24,9 @@ class JobApplicationsController < ApplicationController
     authorize @application
 
     if @application.save
-      redirect_to job_job_applications_path, notice: "Application submitted!"
+      redirect_to job_path(@job), notice: "Application submitted!"
     else
-      render :new, notice: "Something went wrong!"
+      redirect_to job_job_applications_path(@job), alert: "Something went wrong!"
     end
   end
 

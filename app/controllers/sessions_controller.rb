@@ -3,6 +3,7 @@ require "time"
 
 class SessionsController < ApplicationController
 
+  skip_after_action :verify_authorized
   # no need to initialize the session
   def new
     authorize :application, :login?
