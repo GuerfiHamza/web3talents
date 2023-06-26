@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_26_120214) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_26_184335) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -74,6 +74,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_26_120214) do
     t.datetime "updated_at", null: false
     t.index ["connected_user_id"], name: "index_connections_on_connected_user_id"
     t.index ["user_id"], name: "index_connections_on_user_id"
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "sender_id"
+    t.bigint "recipient_id"
+    t.index ["recipient_id"], name: "index_conversations_on_recipient_id"
+    t.index ["sender_id"], name: "index_conversations_on_sender_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -152,6 +161,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_26_120214) do
     t.index ["user_id", "likeable_type", "likeable_id"], name: "index_likes_on_user_id_and_likeable_type_and_likeable_id", unique: true
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.bigint "conversation_id", null: false
+    t.bigint "user_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.string "recipient_type", null: false
     t.bigint "recipient_id", null: false
@@ -217,10 +236,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_26_120214) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "connections", "users"
   add_foreign_key "connections", "users", column: "connected_user_id"
+  add_foreign_key "conversations", "users", column: "recipient_id"
+  add_foreign_key "conversations", "users", column: "sender_id"
   add_foreign_key "events", "users"
   add_foreign_key "job_applications", "jobs"
   add_foreign_key "job_applications", "users"
   add_foreign_key "jobs", "users"
+  add_foreign_key "messages", "conversations"
+  add_foreign_key "messages", "users"
   add_foreign_key "post_hashtags", "hashtags"
   add_foreign_key "post_hashtags", "posts"
   add_foreign_key "skills", "users"
