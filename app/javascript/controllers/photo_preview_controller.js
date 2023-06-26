@@ -1,21 +1,24 @@
-import { Controller } from "@hotwired/stimulus"
+// Visit The Stimulus Handbook for more details
+// https://stimulusjs.org/handbook/introduction
 
-// Connects to data-controller="photo-preview"
+import { Controller } from "stimulus"
+
 export default class extends Controller {
-  // Declare our two targets
-  static targets = ["input", "preview"]
+  static targets = [ "output", "input" ]
 
-  connect() {
-    console.log(previewTarget, inputTarget)
-  }
+  readURL() {
+    var input = this.inputTarget
+    var output = this.outputTarget
 
-  // Code this callback function
-  displayPreview(event) {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      this.previewTarget.src = event.currentTarget.result;
-    }
-    reader.readAsDataURL(this.inputTarget.files[0])
-    this.previewTarget.classList.remove('hidden');
-  }
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = function () {
+       output.src = reader.result
+     }
+
+     reader.readAsDataURL(input.files[0]);
+   }
+ }
+
 }

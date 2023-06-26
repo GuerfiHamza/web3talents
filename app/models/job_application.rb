@@ -2,6 +2,9 @@ class JobApplication < ApplicationRecord
   belongs_to :user
   belongs_to :job
   validates :status, presence: true, inclusion: { in: %w(pending accepted rejected) }
+
+  has_many :experiences, through: :user
+  has_many :skills, through: :user
   # validate :job_owner_cannot_apply
 
   # STATUS = %w(pending accepted rejected)
