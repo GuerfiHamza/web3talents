@@ -22,14 +22,14 @@ class JobApplication < ApplicationRecord
   def job_owner?
     user == job.user
   end
-  # validate :job_owner_cannot_apply
+  validate :job_owner_cannot_apply
 
-  # STATUS = %w(pending accepted rejected)
-  # def job_owner_cannot_apply
-  #   if job.user_id == user_id
-  #     errors.add(:user_id, "can't be the same as job owner")
-  #   end
-  # end
+  STATUS = %w(pending accepted rejected)
+  def job_owner_cannot_apply
+    if job.user_id == user_id
+      errors.add(:user_id, "can't be the same as job owner")
+    end
+  end
 
   def self.statuses
     %w(pending accepted rejected)

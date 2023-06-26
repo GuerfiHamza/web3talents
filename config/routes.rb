@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'myapplications/index'
   ActiveAdmin.routes(self)
 
   root "pages#home"
@@ -15,8 +16,10 @@ Rails.application.routes.draw do
   end
   resources :job_applications, only: [:destroy, :update]
 
-  resources :likes, only: %i[create destroy]
-  resources :feed
+  resources :myapplications, only: [:index]
+
+  # resources :likes, only: %i[create destroy]
+  # resources :feed
   get "signup", to: "users#new"
   post "signup", to: "users#create"
   get "login", to: "sessions#new"
