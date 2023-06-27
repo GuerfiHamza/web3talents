@@ -10,7 +10,6 @@ export default class extends Controller {
       { channel: "PrivateConversationChannel", id: this.chatroomIdValue },
       { received: data => this.#insertMessageAndScrollDown(data) }
     )
-    console.log(`Subscribed to the chatroom with the id ${this.chatroomIdValue}.`)
   }
 
   #insertMessageAndScrollDown(data) {
@@ -23,7 +22,6 @@ export default class extends Controller {
   }
 
   disconnect() {
-    console.log("Unsubscribed from the chatroom")
     this.channel.unsubscribe()
   }
 }

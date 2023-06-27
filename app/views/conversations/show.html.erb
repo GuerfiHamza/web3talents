@@ -1,25 +1,30 @@
-
-<div data-controller="chatroom-subscription"
-  data-chatroom-subscription-chatroom-id-value="<%= @conversation.id %>"
->
-<h1>Conversation between <%= @conversation.sender.username %> and <%= @conversation.recipient.username %></h1>
-
-<div class="messages" data-chatroom-subscription-target="messages">
-  <% @conversation.messages.each do |message| %>
-    <%= render "messages/message", message: message %>
-  <% end %>
+<div>
+  <h1>Conversation between <%= @conversation.sender.username %> and <%= @conversation.recipient.username %></h1>
 </div>
-
 <hr>
-
-<%= simple_form_for :message, url: create_message_conversation_path(@conversation), html: {data: {action: "turbo:submit-end->chatroom-subscription#resetForm"}, class: "d-flex"} do |f|
+<!-- component -->
+<div class="container mx-auto" data-controller="chatroom-subscription"
+  data-chatroom-subscription-chatroom-id-value="<%= @conversation.id %>">
+  <div class="flex flex-col flex-grow bg-gray-800 shadow-xl rounded-lg h-screen">
+    <div class="flex flex-col flex-grow h-0 p-4 overflow-auto">
+      <% @conversation.messages.last(20).each do |message| %>
+        <%= render "messages/message", message: message %>
+      <% end %>
+      <div class="messages" data-chatroom-subscription-target="messages">
+      </div>
+      <div class="bg-gray-200 p-4">
+        <%= simple_form_for :message, url: create_message_conversation_path(@conversation), html: {data: {action: "turbo:submit-end->chatroom-subscription#resetForm"}, class: "d-flex"} do |f|
   %>
-    <%= f.input :content,
+        <%= f.input :content,
       label: false,
       placeholder: "Message #{current_user == @conversation.sender ?
         @conversation.recipient.username : @conversation.sender.username}",
-      wrapper_html: {class: "flex-grow-1"}
+      wrapper_html: {class: "flex items-center h-10 w-full rounded px-3 text-sm w-100"},
+      required: true
     %>
-    <%= f.submit "Send", class: "btn btn-primary mb-3" %>
-  <% end %>
+        <%= f.submit "Send", class: "btn btn-primary mb-3" %>
+      <% end %>
+    </div>
+  </div>
+</div>
 </div>

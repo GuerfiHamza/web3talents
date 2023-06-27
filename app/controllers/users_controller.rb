@@ -1,14 +1,13 @@
 require "eth"
 
 class UsersController < ApplicationController
-
   before_action :require_login, only: [:show]
+  before_action :check_signed_in, only: [:new, :create]
 
   # instantiate a new user
   def new
-
-      @user = User.new
-      authorize :application, :signup?
+    @user = User.new
+    authorize :application, :signup?
   end
 
   def edit
@@ -18,7 +17,6 @@ class UsersController < ApplicationController
 
   # create a new user based on user input
   def create
-
     # create new user from allowed params
     @user = User.new(user_params)
 

@@ -1,7 +1,7 @@
 class JobsController < ApplicationController
   before_action :require_login
   def index
-    @jobs = policy_scope(Job).order(created_at: :desc)
+    @jobs = policy_scope(Job).order(created_at: :desc).page params[:page]
     authorize @jobs
   end
 
@@ -21,18 +21,18 @@ class JobsController < ApplicationController
   end
 
   def show
-    @job = Job.friendly.find(params[:id])
+    @job = Job.find(params[:id])
     @job_application = JobApplication.new
     authorize @job
   end
 
   def edit
-    @job = Job.friendly.find(params[:id])
+    @job = Job.find(params[:id])
     authorize @job
   end
 
   def destroy
-    @job = Job.friendly.find(params[:id])
+    @job = Job.find(params[:id])
     authorize @job
     @job.destroy
 
@@ -40,7 +40,7 @@ class JobsController < ApplicationController
   end
 
   def update
-    @job = Job.friendly.find(params[:id])
+    @job = Job.find(params[:id])
     authorize @job
     if @job.update(job_params)
       redirect_to @job

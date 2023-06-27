@@ -4,6 +4,8 @@ require "time"
 class SessionsController < ApplicationController
 
   skip_after_action :verify_authorized
+  before_action :check_signed_in, only: [:new, :create]
+
   # no need to initialize the session
   def new
     authorize :application, :login?

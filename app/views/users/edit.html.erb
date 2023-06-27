@@ -1,5 +1,5 @@
-<div class="space-y-12 container mx-auto ">
-    <%= simple_form_for @user do |f| %>
+<div class="space-y-12 bg-gray-800 p-5 container mx-auto my-10 rounded-md">
+    <%= simple_form_for @user, html: {data: {controller: "photo-preview"}} do |f| %>
 
   <div class="border-b border-gray-900/10 pb-12">
     <h2 class="text-base font-semibold leading-7 text-white">Profile</h2>
@@ -8,7 +8,7 @@
       <div class="sm:col-span-2">
         <label for="username" class="block text-sm font-medium leading-6 text-white">Username</label>
         <div class="mt-2">
-          <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 bg-white">
+          <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-primary-light bg-white">
             <span class="flex select-none items-center pl-3 text-gray-500 sm:text-sm text-gray-500">alphalink.org/</span>
         <%= f.text_field :username, label:false, class:"block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6" %>
           </div>
@@ -17,42 +17,42 @@
       <div class="sm:col-span-2">
         <label for="twitter" class="block text-sm font-medium leading-6 text-white">Twitter</label>
         <div class="mt-2">
-                <%= f.text_field :twitter, label:false, class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                <%= f.text_field :twitter, label:false, class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6" %>
 
         </div>
       </div>
       <div class="sm:col-span-2">
         <label for="discord" class="block text-sm font-medium leading-6 text-white">Discord</label>
         <div class="mt-2">
-                <%= f.text_field :discord, label:false, class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                <%= f.text_field :discord, label:false, class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6" %>
 
         </div>
       </div>
       <div class="col-span-2">
         <label for="headline" class="block text-sm font-medium leading-6 text-white">Headline</label>
         <div class="mt-2">
-                <%= f.text_field :headline, label:false, class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                <%= f.text_field :headline, label:false, class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6" %>
 
         </div>
       </div>
       <div class="col-span-2">
         <label for="job" class="block text-sm font-medium leading-6 text-white">Current job</label>
         <div class="mt-2">
-                <%= f.text_field :job, label:false, class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                <%= f.text_field :job, label:false, class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6" %>
 
         </div>
       </div>
       <div class="col-span-2">
         <label for="website" class="block text-sm font-medium leading-6 text-white">Website</label>
         <div class="mt-2">
-                <%= f.text_field :website, label:false, class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                <%= f.text_field :website, label:false, class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6" %>
 
         </div>
       </div>
       <div class="col-span-full">
         <label for="about" class="block text-sm font-medium leading-6 text-white">Summary</label>
         <div class="mt-2">
-                <%= f.text_area :summary, label:false, class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+                <%= f.text_area :summary, label:false, class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6" %>
 
         </div>
         <p class="mt-3 text-sm leading-6 text-gray-100">Write a few sentences about yourself.</p>
@@ -67,14 +67,14 @@
           <%= render 'skill_fields', f: sk %>
         <% end %>
       </div>
-      <%= link_to_add_association "Add a new skill", f, :skills, data: {association_insertion_node: '.skills', association_insertion_method: :append}, class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", wrapper_class: 'nested-fields2' %>
+      <%= link_to_add_association "Add a new skill", f, :skills, data: {association_insertion_node: '.skills', association_insertion_method: :append}, class: "rounded-md bg-primary-light px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-light", wrapper_class: 'nested-fields2' %>
       <div class="experiences grid grid-cols-3 gap-3 mt-5">
         <%= f.simple_fields_for :experiences do |sk| %>
           <%= render 'experience_fields', f: sk %>
         <% end %>
       </div>
       <hr class="my-10">
-      <%= link_to_add_association "Add a new experience", f, :experiences, data: {association_insertion_node: '.experiences', association_insertion_method: :append}, class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"  %>
+      <%= link_to_add_association "Add a new experience", f, :experiences, data: {association_insertion_node: '.experiences', association_insertion_method: :append}, class: "rounded-md bg-primary-light px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-light"  %>
       <br>
       <%= f.input :profile_picture, as: :file%>
       <%= f.input :cover_picture, as: :file %>
@@ -82,14 +82,10 @@
 
       <div class="col-span-full">
           <label for="photo" class="block text-sm font-medium leading-6 text-white">Photo</label>
-          <div class="mt-2 flex items-center gap-x-3" data-controller="image-preview">
+          <div class="mt-2 flex items-center gap-x-3">
             <svg class="h-12 w-12 text-gray-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
             </svg>
-            <%= image_tag("",  :width => "100px", :hight => "100px",
-    data: { target: "image-preview.output" }) %>
-
-            <%= f.input :profile_picture, as: :file, input_html: { class: 'd-none', data: {target: "image-preview.input", action: "image-preview#readURL" }}, label_html: { class: 'upload-photo'}, label: '📷 Upload a photo' %>
 
           </div>
         </div>
@@ -102,7 +98,7 @@
                 <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
               </svg>
               <div class="mt-4 flex text-sm leading-6 text-gray-400">
-                <label for="file-upload" class="relative cursor-pointer rounded-md bg-gray-900 font-semibold text-white focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:ring-offset-gray-900 hover:text-indigo-500">
+                <label for="file-upload" class="relative cursor-pointer rounded-md bg-gray-900 font-semibold text-white focus-within:outline-none focus-within:ring-2 focus-within:ring-primary-light focus-within:ring-offset-2 focus-within:ring-offset-gray-900 hover:text-primary-light">
                   <span>Upload a file</span>
                   <input id="file-upload" name="file-upload" type="file" class="sr-only">
                 </label>
@@ -113,10 +109,10 @@
           </div>
         </div>
   </div>
-    <%= f.submit "Update", class:"rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
-    <% end %>
   <div class="mt-6 flex items-center justify-end gap-x-6">
-    <button type="button" class="text-sm font-semibold leading-6 text-white">Cancel</button>
-    <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
+    <%= f.submit "Update", class:"rounded-md bg-primary-light cursor-pointer px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-light" %>
+
   </div>
+    <% end %>
+
 </div>

@@ -24,10 +24,10 @@
       <%= form.text_field :username, class:"mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm" %> <br />
       <%= form.text_field :eth_address, readonly: true, data: {sessions_target: "inputEthAddress"}, class: "eth_address" %> <br />
     <% end %>
-    <button data-action="click->sessions#signUpWithEth" data-sessions-target="buttonEthConnect" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign-up with Ethereum</button>
+    <button data-action="click->sessions#signUpWithEth" data-sessions-target="buttonEthConnect" class="flex w-full justify-center rounded-md bg-primary-light px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-primary-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-light">Sign-up with Ethereum</button>
     <p class="mt-10 text-center text-sm text-gray-500">
       Already a member?
-      <%= link_to "Log in", login_path, class: "font-semibold leading-6 text-indigo-600 hover:text-indigo-500" %>
+      <%= link_to "Log in", login_path, class: "font-semibold leading-6 text-primary-light hover:text-primary-light" %>
     </p>
   </div>
 </div>
