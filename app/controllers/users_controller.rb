@@ -40,7 +40,6 @@ class UsersController < ApplicationController
 
           # save to database
           if @user.save
-            session[:modal] = true
             # if user is created, congratulations, send them to login
             redirect_to login_path, notice: "Successfully created an account, you may now log in."
           else

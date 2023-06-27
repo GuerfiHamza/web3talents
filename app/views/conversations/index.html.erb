@@ -12,7 +12,34 @@
       <ul role="list" class="divide-y divide-gray-700">
           <% @conversations.each do |conversation| %>
           <li>
-          <%= link_to "ranom", conversation_path(conversation) %>
+            <%= link_to conversation_path(conversation) do %>
+              <div class="px-4 py-4 sm:px-6 hover:bg-gray-700 transation duration-300">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center justify-between">
+                  <% if conversation.sender == current_user %>
+                    <% if conversation.recipient.profile_picture.key.present? %>
+                      <%= cl_image_tag conversation.recipient.profile_picture.key, height: 250,width:250, crop: :fill, class:"w-10 mr-5 rounded-full" %>
+                    <% else %>
+                      <img src="https://res.cloudinary.com/dhufhm6ar/image/upload/v1687785983/Windows_10_Default_Profile_Picture.svg_uajtrb.png" class="mr-5 h-10 w-10 border-4 border-white rounded-full">
+                    <% end %>
+                    <div>
+                      <div class="truncate text font-medium text-white"><%= conversation.recipient.username %></div>
+                    </div>
+                  <% else %>
+                    <% if conversation.sender.profile_picture.key.present? %>
+                      <%= cl_image_tag conversation.sender.profile_picture.key, height: 250,width:250, crop: :fill, class:"w-10 mr-5 rounded-full" %>
+                    <% else %>
+                      <img src="https://res.cloudinary.com/dhufhm6ar/image/upload/v1687785983/Windows_10_Default_Profile_Picture.svg_uajtrb.png" class="mr-5 h-10 w-10 border-4 border-white rounded-full">
+                    <% end %>
+                    <div>
+                      <div class="truncate text font-medium text-white"><%= conversation.sender.username %></div>
+                    </div>
+                  <% end %>
+                  </div>
+                  <small class="text-white"><%= time_ago_in_words(conversation.created_at) %></small>
+                </div>
+              </div>
+            <% end %>
           </li>
         <% end %>
       </ul>
