@@ -43,7 +43,7 @@ gem 'activeadmin', github: 'activeadmin/activeadmin'
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 
 gem 'active_skin'
-
+gem 'kaminari'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 

@@ -2,19 +2,19 @@ class JobApplicationsController < ApplicationController
   before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
 
   def index
-    @job = Job.friendly.find(params[:job_id])
+    @job = Job.find(params[:job_id])
     @applications = policy_scope(JobApplication).where(job: @job).order(created_at: :desc)
     authorize @applications
   end
 
   def new
-    @job = Job.friendly.find(params[:job_id])
+    @job = Job.find(params[:job_id])
     @application = JobApplication.new
     authorize @application
   end
 
   def create
-    @job = Job.friendly.find(params[:job_id])
+    @job = Job.find(params[:job_id])
     @application = JobApplication.new
     @application.user = current_user
     @application.job = @job

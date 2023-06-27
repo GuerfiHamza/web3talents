@@ -1,6 +1,6 @@
 <% if current_user %>
-
 <% $notifications = current_user.notifications.reverse.first(5) %>
+      <% if !$notification.present? %>
   <div class="container text-xs p-3">
     <%= turbo_stream_from "notifications_#{user.id}" %>
     <%= turbo_frame_tag "notifications_#{user.id}" do %>
@@ -10,7 +10,11 @@
                     job: notification.to_notification.job,
                     job_application: notification.to_notification.job_application,
                     unread: notification.unread? %>
+
       <% end %>
     <% end %>
   </div>
+  <% else %>
+    No notification
+    <% end %>
 <% end %>

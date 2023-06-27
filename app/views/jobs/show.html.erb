@@ -16,19 +16,19 @@
                 <%= simple_form_for [@job, @job_application] do |f| %>
                   <div class="flex justify-end items-center flex-wrap mt-6">
 
-                  <%= link_to "Edit your information", edit_user_path(current_user), class:"relative inline-flex right-0 items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+                  <%= link_to "Edit your information", edit_user_path(current_user), class:"relative inline-flex right-0 items-center rounded-md border border-transparent bg-primary-light px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2" %>
                   </div>
                 <div class="mt-2 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                   <div class="sm:col-span-3">
                     <label for="twitter" class="block text-sm font-medium leading-6 text-white">Twitter</label>
                     <div class="mt-2">
-                      <input type="text" name="twitter" id="twitter" autocomplete="discord" value="<%= current_user.twitter %>" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      <input type="text" name="twitter" id="twitter" autocomplete="discord" value="<%= current_user.twitter %>" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6">
                     </div>
                   </div>
                   <div class="sm:col-span-3">
                     <label for="discord" class="block text-sm font-medium leading-6 text-white">Discord</label>
                     <div class="mt-2">
-                      <input type="text" name="discord" id="discord" autocomplete="discord" value="<%= current_user.discord %>" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      <input type="text" name="discord" id="discord" autocomplete="discord" value="<%= current_user.discord %>" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6">
                     </div>
                   </div>
                 </div>
@@ -36,7 +36,7 @@
                   <div>
                     <label for="username" class="block text-sm font-medium text-white">Username</label>
                     <div class="mt-1 flex rounded-md shadow-sm">
-                      <input type="text" name="username" id="username" autocomplete="username" value="<%= current_user.username %>" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                      <input type="text" name="username" id="username" autocomplete="username" value="<%= current_user.username %>" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6">
 
                     </div>
                   </div>
@@ -70,9 +70,9 @@
                   </div>
 
                   <div class="flex justify-end items-center flex-wrap mt-6">
-                  <%= f.submit "Apply", class:"relative inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mr-5" %>
+                  <%= f.submit "Apply", class:"relative inline-flex items-center rounded-md border border-transparent bg-primary-light px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2 mr-5" %>
 
-                  <button class="relative inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" data-action="click->modal#close">Close</button>
+                  <button class="relative inline-flex items-center rounded-md border border-transparent bg-primary-light px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2" data-action="click->modal#close">Close</button>
                 </div>
                 <% end %>
 
@@ -81,11 +81,11 @@
           </div>
         </div>
         <div class="ml-4 mt-4 flex-shrink-0">
-          <a href="#" data-action="click->modal#open" class="relative inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" >
+          <a href="#" data-action="click->modal#open" class="relative inline-flex items-center rounded-md border border-transparent bg-primary-light px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2" >
             <span>Apply</span>
           </a>
           <% if policy(@job.job_applications).index? %>
-          <%= link_to "View Applications", job_job_applications_path(@job), class:"relative inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" %>
+          <%= link_to "View Applications", job_job_applications_path(@job), class:"relative inline-flex items-center rounded-md border border-transparent bg-primary-light px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2" %>
           <% end %>
         </div>
       </div>

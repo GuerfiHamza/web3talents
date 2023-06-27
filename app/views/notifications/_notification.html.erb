@@ -1,6 +1,6 @@
-<div class="border-b">
-  <span><%= job_application.job.user.username %></span>
-  <%= job_application.status %> your application for <%= link_to job_path(job_application.job),target: "_top" do %> <span class="text-primary"> <%= job_application.job.title %></span> <% end %>-
 
-  <%= notification.created_at.strftime("%d %B %Y - %-l:%M %p") if local_variables.include?(:notification) %>
-</div>
+  <div class="border-b">
+    <span><%= job_application.job.user.username %></span>
+    <%= job_application.status %> your application for <%= link_to job_path(job_application.job),target: "_top" do %> <span class="text-primary"> <%= job_application.job.title %></span> <% end %>-
+    <%= notification.created_at.strftime("%d %B %Y - %-l:%M %p") if local_variables.include?(:notification) %>
+  </div>

@@ -1,7 +1,17 @@
 <div id="message-<%= message.id %>">
-  <small>
-    <strong><%= message.user.username %></strong>
-    <i><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></i>
-  </small>
-  <p><%= message.content %></p>
+  <%# if the sender %>
+    <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto<%= message.sender?(current_user) ? 'justify-content-end' : 'justify-content-start' %>"">
+      <div>
+        <div class="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg">
+          <p class="text-sm"><%= message.content %></p>
+        </div>
+        <span class="text-xs text-gray-500 leading-none"><%= time_ago_in_words(message.created_at) %> ago</span>
+      </div>
+      <% if message.sender.profile_picture.key.present? %>
+        <%= cl_image_tag message.sender.profile_picture.key, height: 250,width:250, crop: :fill, class:" h-10 w-10 rounded-full" %>
+      <% else %>
+        <img src="https://res.cloudinary.com/dhufhm6ar/image/upload/v1687785983/Windows_10_Default_Profile_Picture.svg_uajtrb.png" class="h-10 w-10 border-4 border-white rounded-full">
+      <% end %>
+    </div>
+    <%# if the receiver %>
 </div>

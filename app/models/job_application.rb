@@ -22,7 +22,7 @@ class JobApplication < ApplicationRecord
   def job_owner?
     user == job.user
   end
-  validate :job_owner_cannot_apply
+  # validate :job_owner_cannot_apply
 
   STATUS = %w(pending accepted rejected)
   def job_owner_cannot_apply
