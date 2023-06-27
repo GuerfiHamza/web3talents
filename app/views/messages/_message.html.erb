@@ -1,6 +1,6 @@
 <div id="message-<%= message.id %>">
   <%# if the sender %>
-    <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto<%= message.sender?(current_user) ? 'justify-content-end' : 'justify-content-start' %>"">
+    <div class="flex w-full mt-2 space-x-3 max-w-xs ml-auto <%= message.sender?(current_user) ? 'justify-content-end' : 'justify-content-start' %>">
       <div>
         <div class="bg-blue-600 text-white p-3 rounded-l-lg rounded-br-lg">
           <p class="text-sm"><%= message.content %></p>

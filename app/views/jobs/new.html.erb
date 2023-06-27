@@ -1,5 +1,3 @@
-
-
 <div class="my-10 container mx-auto overflow-hidden bg-gray-800 shadow sm:rounded-lg">
   <div class="px-4 py-5 sm:px-6 -ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
     <div class="ml-4 mt-4">
@@ -7,56 +5,55 @@
     </div>
   </div>
   <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
-      <%= simple_form_for @job do |f| %>
-        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 p-8">
-          <div class="sm:col-span-2">
-            <label for="title" class="block text-sm font-medium leading-6 text-white">Job title</label>
-            <div class="mt-2">
-              <%= f.input :title, label: false, input_html: { class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6"}  %>
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label for="project-name" class="block text-sm font-medium leading-6 text-white">Project name</label>
-            <div class="mt-2">
-              <%= f.input :company, label: false, input_html: {  class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6"} %>
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label for="chain" class="block text-sm font-medium leading-6 text-white">Chain</label>
-            <div class="mt-2">
-              <%= f.input :chain, collection: Job::CHAIN || Job::CHAIN.first, label: false, input_html: { class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6"} %>
-
-            </div>
-          </div>
-          <div class="sm:col-span-full">
-            <label for="description" class="block text-sm font-medium leading-6 text-white">Description</label>
-            <div class="mt-2">
-            <%= f.input :description, label: false, input_html: { data: {controller: "textarea-autogrow"},class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6"} %>
-            </div>
-          </div>
-          <div class="sm:col-span-2 sm:col-start-1">
-            <label for="twitter" class="block text-sm font-medium leading-6 text-white">Twitter</label>
-            <div class="mt-2">
-             <%= f.input :twitter_link, label: false, input_html: { class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6" }%>
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label for="discord" class="block text-sm font-medium leading-6 text-white">Discord</label>
-            <div class="mt-2">
-             <%= f.input :discord_invite, label: false, input_html: { class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6" }%>
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label for="os" class="block text-sm font-medium leading-6 text-white">OpenSea</label>
-            <div class="mt-2">
-             <%= f.input :os_link, label: false, input_html: { class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6" }%>
-            </div>
+    <%= simple_form_for @job do |f| %>
+      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 p-8">
+        <div class="sm:col-span-2">
+          <label for="title" class="block text-sm font-medium leading-6 text-white">Job title</label>
+          <div class="mt-2">
+            <%= f.input :title, label: false, input_html: { class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6"}  %>
           </div>
         </div>
-    <div class="mt-6 flex items-center justify-end gap-x-6">
-     <%= f.button :submit,"Post a job", class:"rounded-md bg-primary-light px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-light" %>
+        <div class="sm:col-span-2">
+          <label for="project-name" class="block text-sm font-medium leading-6 text-white">Project name</label>
+          <div class="mt-2">
+            <%= f.input :company, label: false, input_html: {  class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6"} %>
+          </div>
+        </div>
+        <div class="sm:col-span-2">
+          <label for="chain" class="block text-sm font-medium leading-6 text-white">Chain</label>
+          <div class="mt-2">
+            <%= f.input :chain, collection: Job::CHAIN || Job::CHAIN.first, label: false, input_html: { class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6"} %>
+          </div>
+        </div>
+        <div class="sm:col-span-full">
+          <label for="description" class="block text-sm font-medium leading-6 text-white">Description</label>
+          <div class="mt-2">
+            <%= f.input :description, label: false, input_html: { data: {controller: "textarea-autogrow"},class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6"} %>
+          </div>
+        </div>
+        <div class="sm:col-span-2 sm:col-start-1">
+          <label for="twitter" class="block text-sm font-medium leading-6 text-white">Twitter</label>
+          <div class="mt-2">
+            <%= f.input :twitter_link, label: false, input_html: { class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6" }%>
+          </div>
+        </div>
+        <div class="sm:col-span-2">
+          <label for="discord" class="block text-sm font-medium leading-6 text-white">Discord</label>
+          <div class="mt-2">
+            <%= f.input :discord_invite, label: false, input_html: { class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6" }%>
+          </div>
+        </div>
+        <div class="sm:col-span-2">
+          <label for="os" class="block text-sm font-medium leading-6 text-white">OpenSea</label>
+          <div class="mt-2">
+            <%= f.input :os_link, label: false, input_html: { class:"block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6" }%>
+          </div>
+        </div>
 
-    </div>
-      <% end %>
+      </div>
+      <div class="mt-2 flex items-center justify-end p-8">
+          <%= f.button :submit,"Post a job", class:"rounded-md bg-primary-light px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-light" %>
+        </div>
+    <% end %>
   </div>
 </div>

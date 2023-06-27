@@ -81,10 +81,12 @@
           </div>
         </div>
         <div class="ml-4 mt-4 flex-shrink-0">
+        <% if current_user != @job.user %>
           <a href="#" data-action="click->modal#open" class="relative inline-flex items-center rounded-md border border-transparent bg-primary-light px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2" >
             <span>Apply</span>
           </a>
-          <% if policy(@job.job_applications).index? %>
+          <% end %>
+          <% if current_user == @job.user %>
           <%= link_to "View Applications", job_job_applications_path(@job), class:"relative inline-flex items-center rounded-md border border-transparent bg-primary-light px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2" %>
           <% end %>
         </div>
