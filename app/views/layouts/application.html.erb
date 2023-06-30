@@ -1,24 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html class="dark scroll-smooth" lang="en" dir="ltr">
   <head>
     <title>Web3talents</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <%= javascript_importmap_tags("application", shim: false) %>
     <%= javascript_include_tag "jquery" %>
 
   </head>
 
-  <body class="h-full bg-gray-900 overflow-x-hidden	">
+  <body class="bg-slate-900">
+  <div id="preloader">
+   <div id="status">
+     <div class="spinner">
+       <div class="double-bounce1"></div>
+       <div class="double-bounce2"></div>
+     </div>
+   </div>
+</div>
         <main data-controller="sessions">
 
         <%= render "shared/navbar" %>
         <%= render "shared/flashes" %>
         <%= yield %>
       </main>
+
+    <%= javascript_include_tag "libs/tobii/js/tobii.min", "data-turbo-track": "reload", defer: true %>
+    <%= javascript_include_tag "libs/choices.js/public/assets/scripts/choices.min", "data-turbo-track": "reload", defer: true %>
+    <%= javascript_include_tag "libs/feather-icons/feather.min", "data-turbo-track": "reload", defer: true %>
+    <%= javascript_include_tag "app", "data-turbo-track": "reload", defer: true %>
+    <%= javascript_include_tag "plugins.init", "data-turbo-track": "reload", defer: true %>
   </body>
 </html>
