@@ -3,6 +3,7 @@ class JobsController < ApplicationController
   def index
     @jobs = policy_scope(Job).order(created_at: :desc).page params[:page]
     authorize @jobs
+
   end
 
   def new
