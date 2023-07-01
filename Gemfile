@@ -32,7 +32,6 @@ gem "stimulus-rails"
 gem "jbuilder"
 
 gem "eth", "~> 0.5.5"
-gem 'sorcery'
 gem "faker"
 gem 'friendly_id', '~> 5.4.0'
 gem "tailwindcss-rails"
@@ -95,3 +94,5 @@ group :test do
 end
 
 gem "noticed", "~> 1.6"
+
+gem "devise", "~> 4.9"

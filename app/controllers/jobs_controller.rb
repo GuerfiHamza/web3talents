@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_action :require_login
+  before_action :authenticate_user!
   def index
     @jobs = policy_scope(Job).order(created_at: :desc).page params[:page]
     authorize @jobs

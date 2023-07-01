@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   ActiveAdmin.routes(self)
 
   root "pages#home"
@@ -18,26 +19,8 @@ Rails.application.routes.draw do
 
   resources :myjobs, only: [:index]
   resources :myapplications, only: [:index]
-  # config/routes.rb
   resources :conversations, only: [:index, :create, :show] do
     post 'create_message', on: :member
   end
 
-
-  # resources :likes, only: %i[create destroy]
-  # resources :feed
-  get "signup", to: "users#new"
-  post "signup", to: "users#create"
-  get "login", to: "sessions#new"
-  post "login", to: "sessions#create"
-  delete "logout", to: "sessions#destroy"
-  post "logout", to: "sessions#destroy"
-  get "logout", to: "sessions#destroy"
-
-  # api to fetch nonces for users
-  namespace :api do
-    namespace :v1 do
-      resources :users
-    end
-  end
 end
