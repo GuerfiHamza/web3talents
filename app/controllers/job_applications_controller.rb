@@ -1,5 +1,5 @@
 class JobApplicationsController < ApplicationController
-  before_action :require_login, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @job = Job.find(params[:job_id])

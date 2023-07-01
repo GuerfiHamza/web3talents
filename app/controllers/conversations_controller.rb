@@ -1,5 +1,5 @@
 class ConversationsController < ApplicationController
-  before_action :require_login
+  before_action :authenticate_user!
 
   def index
     @c = current_user.sent_conversations + current_user.received_conversations

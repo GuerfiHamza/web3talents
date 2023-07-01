@@ -1,12 +1,11 @@
 ActiveAdmin.register User do
 
-  permit_params :username, :eth_address, :headline, :profile_picture, :cover_picture, :summary, :job, :website, :twitter, :discord, :slug, :admin
+  permit_params :username, :headline, :profile_picture, :cover_picture, :summary, :job, :website, :twitter, :discord, :slug, :admin
 
   index do
     selectable_column
     id_column
     column :username
-    column :eth_address
     column :headline
     column :summary
     column :job

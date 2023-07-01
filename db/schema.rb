@@ -218,9 +218,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_27_155547) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "eth_address", null: false
-    t.string "eth_nonce"
+    t.string "first_name", default: ""
+    t.string "last_name", default: ""
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.date "birth_date"
+    t.string "username", default: ""
     t.string "headline", default: ""
     t.string "profile_picture", default: ""
     t.string "cover_picture", default: ""
@@ -229,15 +232,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_27_155547) do
     t.text "website", default: ""
     t.string "twitter", default: ""
     t.string "discord", default: ""
-    t.string "salt"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "remember_me_token"
-    t.datetime "remember_me_token_expires_at"
     t.string "slug"
     t.boolean "admin", default: false, null: false
-    t.index ["eth_address"], name: "index_users_on_eth_address", unique: true
-    t.index ["remember_me_token"], name: "index_users_on_remember_me_token"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
   end
 

@@ -1,7 +1,8 @@
 class User < ApplicationRecord
-  authenticates_with_sorcery!
-  validates :eth_address, presence: true, uniqueness: true
-  validates :eth_nonce, presence: true, uniqueness: true
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable, :trackable
   validates :username, presence: true, uniqueness: true
   has_many :likes
   has_many :experiences
@@ -25,6 +26,6 @@ class User < ApplicationRecord
   JOBS = ["Full Stack Developer", "Front End Developer", "Back End Developer", "DevOps", "Data Scientist", "Data Analyst", "UX Designer", "UI Designer", "Product Manager", "Project Manager", "QA Engineer", "Software Engineer", "Software Architect", "Software Developer", "Software Tester", "Technical Lead", "Technical Architect", "Technical Manager", "Technical Consultant", "Technical Specialist", "Technical Writer", "Technical Recruiter", "Technical Support", "Technical Trainer", "Technical Sales", "Technical Account Manager", "Technical Account Executive", "Technical Account Director", "Technical Account Specialist", "Technical Account Representative", "Technical Account Coordinator", "Technical Account Engineer", "Technical Account Administrator", "Technical Account Associate", "Technical Account Analyst", "Technical Account Advisor", "Technical Account Agent", "Technical Account Assistant", "Technical Account Administrator", "Technical Account Agent", "Technical Account Assistant", "Technical Account Administrator", "Technical Account Agent", "Technical Account Assistant", "Technical Account Administrator", "Technical Account Agent", "Technical Account Assistant", "Technical Account Administrator", "Technical Account Agent", "Technical Account Assistant", "Technical Account Administrator", "Technical Account Agent", "Technical Account Assistant", "Technical Account Administrator", "Technical Account Agent", "Technical Account Assistant", "Technical Account Administrator", "Technical Account Agent", "Technical Account Assistant", "Technical Account Administrator", "Technical Account Agent", "Technical Account Assistant", "Technical Account Administrator", "Technical Account Agent", "Technical Account Assistant", "Technical Account Administrator", "Technical Account Agent", "Technical Account Assistant", "Technical Account Administrator", "Technical Account Agent", "Technical Account Assistant", "Technical Account Administrator"]
 
   def self.jobs
-    
+
   end
 end
