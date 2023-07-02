@@ -13,6 +13,7 @@
           <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <div class="text-left">
               <div class="grid grid-cols-1">
+              
                 <div class="mb-4 ltr:text-left rtl:text-right">
                   <label class="font-semibold" for="LoginEmail">Email Address:</label>
                   <%= f.input :email,
@@ -54,11 +55,6 @@
                   <span class="text-slate-400 me-2">Don't have an account ?</span>
                   <%= link_to "Sign Up", new_user_registration_path, class:"text-black dark:text-white font-bold" %>
                 </div>
-        </div>
-        <div class="px-6 py-2 bg-slate-50 dark:bg-slate-800 text-center">
-          <p class="mb-0 text-gray-400 font-medium">© <script>
-              document.write(new Date().getFullYear())
-            </script> Jobstack. Designed by <a href="https://shreethemes.in/" target="_blank" class="text-reset">Shreethemes</a>.</p>
         </div>
       </div>
     </div>
