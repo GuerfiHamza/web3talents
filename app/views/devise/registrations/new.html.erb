@@ -1,29 +1,72 @@
-<h2>Sign up</h2>
+<section class="h-screen flex items-center justify-center relative overflow-hidden bg-no-repeat bg-center bg-cover" style="background-image: url('<%= cl_image_path "https://res.cloudinary.com/dhufhm6ar/image/upload/v1688276020/bg3_jvuwfy.jpg" %>')">
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
+  <div class="container">
+    <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+      <div class="relative overflow-hidden bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
+        <div class="p-6">
+          <a href="">
+            <%= image_tag("logo-dark.png", class:"mx-auto h-[24px] block dark:hidden") %>
+            <%= image_tag("logo-light.png", class:"mx-auto h-[24px] dark:block hidden") %>
+          </a>
+          <h5 class="my-6 text-xl font-semibold">Login</h5>
+          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= f.error_notification %>
+          <div class="text-left">
+            <div class="grid grid-cols-1">
+              <%# <div class="mb-4 ltr:text-left rtl:text-right">
+                                        <label class="font-semibold" for="RegisterName">Your Name:</label>
+                                        <input id="RegisterName" type="text" class="form-input mt-3 rounded-md" placeholder="Harry">
+                                    </div> %>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :email,
+              <div class="mb-4 ltr:text-left rtl:text-right">
+                  <label class="font-semibold" for="LoginUsername">Username:</label>
+                  <%= f.input :username,
+                required: false,
+                autofocus: true,
+                label: false,
+                input_html: { autocomplete: "username", class:"form-input mt-3 rounded-md", placeholder:"Username", id: "LoginUsername" } %>
+                </div>
+              <div class="mb-4 ltr:text-left rtl:text-right">
+                <label class="font-semibold" for="LoginEmail">Email Address:</label>
+                 <%= f.input :email,
                 required: true,
                 autofocus: true,
-                input_html: { autocomplete: "email" }%>
-    <%= f.input :username,
+                label: false,
+                input_html: { autocomplete: "email", id:"LoginEmail", class:"form-input mt-3 rounded-md", placeholder:"name@example.com"  }%>
+              </div>
+              <div class="mb-4 ltr:text-left rtl:text-right">
+                <label class="font-semibold" for="LoginPassword">Password:</label>
+                 <%= f.input :password,
                 required: true,
-                autofocus: true,
-                input_html: { autocomplete: "username" }%>
-    <%= f.input :password,
-                required: true,
+                label: false,
                 hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
+                input_html: { autocomplete: "new-password", class:"form-input mt-3 rounded-md", placeholder:"Password:", id:"LoginPassword" } %>
+              </div>
+              <div class="mb-4 ltr:text-left rtl:text-right">
+                <label class="font-semibold" for="LoginPassword">Password Confirmation:</label>
+                 <%= f.input :password_confirmation,
                 required: true,
-                input_html: { autocomplete: "new-password" } %>
+                label: false,
+                input_html: { autocomplete: "new-password", class:"form-input mt-3 rounded-md", placeholder:"Password:", id:"LoginPassword" } %>
+              </div>
+              <div class="mb-4">
+                <div class="flex items-center mb-0">
+                  <input class="form-checkbox rounded border-gray-200 dark:border-gray-800 text-purple-600 focus:border-purple-300 focus:ring focus:ring-offset-0 focus:ring-purple-200 focus:ring-opacity-50 me-2" type="checkbox" value="" id="Accept:T&C">
+                  <label class="form-checkbox-label text-slate-400" for="Accept:T&C">I Accept <a href="" class="text-purple-600">Terms And Condition</a></label>
+                </div>
+              </div>
+              <div class="mb-4">
+                <input type="submit" class="btn bg-purple-600 hover:bg-purple-700 border-purple-600 hover:border-purple-700 text-white rounded-md w-full" value="Register">
+              </div>
+              <div class="text-center">
+                <span class="text-slate-400 me-2">Already have an account ? </span>
+                <%= link_to "Sign In", new_user_session_path, class:"text-black dark:text-white font-bold" %>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</section>
