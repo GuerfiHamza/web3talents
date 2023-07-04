@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :comments, only: [:destroy]
   resources :likes, only: [:destroy]
 
+  resources :company
   resources :jobs, only: [:index, :show, :new, :edit, :create, :destroy] do
     get "jobs/:id", action: :index, on: :collection
     resources :job_applications, only: [:index, :show, :new, :edit, :create]
