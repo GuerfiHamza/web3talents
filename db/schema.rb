@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_27_155547) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_03_180159) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,24 +56,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_27_155547) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.text "body", null: false
-    t.integer "user_id", null: false
-    t.integer "post_id", null: false
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.text "bio"
+    t.string "logo"
+    t.string "banner"
+    t.text "contact", default: [], array: true
+    t.string "website"
+    t.string "_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["post_id"], name: "index_comments_on_post_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
-  end
-
-  create_table "connections", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "connected_user_id", null: false
-    t.string "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["connected_user_id"], name: "index_connections_on_connected_user_id"
-    t.index ["user_id"], name: "index_connections_on_user_id"
+    t.index ["slug"], name: "index_companies_on_slug", unique: true
+    t.index ["user_id"], name: "index_companies_on_user_id"
   end
 
   create_table "conversations", force: :cascade do |t|
@@ -83,18 +79,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_27_155547) do
     t.bigint "recipient_id"
     t.index ["recipient_id"], name: "index_conversations_on_recipient_id"
     t.index ["sender_id"], name: "index_conversations_on_sender_id"
-  end
-
-  create_table "events", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.string "location"
-    t.date "start_date"
-    t.date "end_date"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_events_on_user_id"
   end
 
   create_table "experiences", force: :cascade do |t|
@@ -128,12 +112,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_27_155547) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
-  create_table "hashtags", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "job_applications", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "job_id", null: false
@@ -144,30 +122,35 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_27_155547) do
     t.index ["user_id"], name: "index_job_applications_on_user_id"
   end
 
-  create_table "jobs", force: :cascade do |t|
-    t.bigint "user_id", null: false
+  create_table "job_categories", force: :cascade do |t|
     t.string "title"
-    t.string "company"
-    t.string "twitter_link"
-    t.string "discord_invite"
-    t.string "os_link"
-    t.text "description"
-    t.string "chain"
+    t.string "slug"
+    t.integer "index"
+    t.string "_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "slug"
-    t.index ["slug"], name: "index_jobs_on_slug", unique: true
-    t.index ["user_id"], name: "index_jobs_on_user_id"
+    t.index ["slug"], name: "index_job_categories_on_slug", unique: true
   end
 
-  create_table "likes", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "likeable_type"
-    t.bigint "likeable_id"
+  create_table "jobs", force: :cascade do |t|
+    t.string "title"
+    t.string "slug"
+    t.string "location"
+    t.text "description"
+    t.string "chain", default: ""
+    t.string "apply_url"
+    t.string "job_type"
+    t.string "payscale_max"
+    t.string "payscale_min"
+    t.boolean "pay_in_crypto", default: false
+    t.boolean "isWorldwide", default: false
+    t.bigint "companies_id"
+    t.bigint "job_categories_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
-    t.index ["user_id", "likeable_type", "likeable_id"], name: "index_likes_on_user_id_and_likeable_type_and_likeable_id", unique: true
+    t.index ["companies_id"], name: "index_jobs_on_companies_id"
+    t.index ["job_categories_id"], name: "index_jobs_on_job_categories_id"
+    t.index ["slug"], name: "index_jobs_on_slug", unique: true
   end
 
   create_table "messages", force: :cascade do |t|
@@ -192,23 +175,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_27_155547) do
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
   end
 
-  create_table "post_hashtags", force: :cascade do |t|
-    t.bigint "post_id", null: false
-    t.bigint "hashtag_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["hashtag_id"], name: "index_post_hashtags_on_hashtag_id"
-    t.index ["post_id"], name: "index_post_hashtags_on_post_id"
-  end
-
-  create_table "posts", force: :cascade do |t|
-    t.text "body", null: false
-    t.integer "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_posts_on_user_id"
-  end
-
   create_table "skills", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "user_id", null: false
@@ -223,12 +189,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_27_155547) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.date "birth_date"
-    t.string "username", default: ""
     t.string "headline", default: ""
     t.string "profile_picture", default: ""
     t.string "cover_picture", default: ""
     t.string "summary", default: ""
-    t.text "job", default: ""
     t.text "website", default: ""
     t.string "twitter", default: ""
     t.string "discord", default: ""
@@ -251,18 +215,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_27_155547) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "connections", "users"
-  add_foreign_key "connections", "users", column: "connected_user_id"
+  add_foreign_key "companies", "users"
   add_foreign_key "conversations", "users", column: "recipient_id"
   add_foreign_key "conversations", "users", column: "sender_id"
-  add_foreign_key "events", "users"
   add_foreign_key "feedbacks", "users"
   add_foreign_key "job_applications", "jobs"
   add_foreign_key "job_applications", "users"
-  add_foreign_key "jobs", "users"
+  add_foreign_key "jobs", "companies", column: "companies_id"
+  add_foreign_key "jobs", "job_categories", column: "job_categories_id"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
-  add_foreign_key "post_hashtags", "hashtags"
-  add_foreign_key "post_hashtags", "posts"
   add_foreign_key "skills", "users"
 end

@@ -18,14 +18,7 @@
                                         <input id="RegisterName" type="text" class="form-input mt-3 rounded-md" placeholder="Harry">
                                     </div> %>
 
-              <div class="mb-4 ltr:text-left rtl:text-right">
-                  <label class="font-semibold" for="LoginUsername">Username:</label>
-                  <%= f.input :username,
-                required: false,
-                autofocus: true,
-                label: false,
-                input_html: { autocomplete: "username", class:"form-input mt-3 rounded-md", placeholder:"Username", id: "LoginUsername" } %>
-                </div>
+              
               <div class="mb-4 ltr:text-left rtl:text-right">
                 <label class="font-semibold" for="LoginEmail">Email Address:</label>
                  <%= f.input :email,

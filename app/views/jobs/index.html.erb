@@ -1,44 +1,300 @@
-
-<div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-  <div class="mx-auto max-w-none">
-    <div class="overflow-hidden bg-gray-800 sm:rounded-lg sm:shadow">
-      <div class="border-b border-gray-200 bg-gray-800 px-4 py-5 sm:px-6">
-        <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
-          <div class="ml-4 mt-4">
-            <h3 class="text-lg font-medium leading-6 text-white">Job Postings</h3>
-            <p class="mt-1 text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit quam corrupti consectetur.</p>
-          </div>
-          <div class="ml-4 mt-4 flex-shrink-0">
-            <%= link_to "My jobs", myjobs_path, class: "relative inline-flex items-center rounded-md border border-transparent bg-primary-light px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2" %>
-            <%= link_to "Post a job", new_job_path, class: "relative inline-flex items-center rounded-md border border-transparent bg-primary-light px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-primary-light focus:ring-offset-2" %>
-          </div>
-        </div>
-      </div>
-      <ul role="list" class="divide-y divide-gray-200">
-        <% @jobs.each do |job| %>
-          <%= link_to job_path(job) do %>
-            <li>
-              <div class="px-4 py-4 sm:px-6 hover:bg-gray-900 border-b transation duration-300">
-                <div class="flex items-center justify-between">
-                  <div class="truncate text-sm font-medium text-white"><%= job.company %></div>
-                  <div class="ml-2 flex flex-shrink-0">
-                    <span class="inline-flex rounded-full bg-secondary px-2 text-xs font-semibold leading-5 text-gray-700 align-items-center"><%= job.chain %></span>
-                  </div>
+<section class="relative table w-full py-36 bg-top bg-no-repeat bg-cover" style="background-image: url('<%= cl_image_path "https://res.cloudinary.com/dhufhm6ar/image/upload/v1688336083/bg_iawzwb.jpg" %>')">
+  <div class="absolute inset-0 bg-purple-900/90"></div>
+  <div class="container">
+    <div class="grid grid-cols-1 text-center mt-10">
+      <h3 class="md:text-3xl text-2xl md:leading-snug tracking-wide leading-snug font-medium text-white">Job Vacancies</h3>
+    </div>
+    <!--end grid-->
+  </div>
+  <!--end container-->
+</section>
+<!--end section-->
+<div class="relative">
+  <div class="shape absolute start-0 end-0 sm:-bottom-px -bottom-[2px] overflow-hidden z-1 text-white dark:text-slate-900">
+    <svg class="w-full h-auto" viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 48H1437.5H2880V0H2160C1442.5 52 720 0 720 0H0V48Z" fill="currentColor"></path>
+    </svg>
+  </div>
+</div>
+<!-- End Hero -->
+<!-- Start -->
+<section class="relative md:py-24 py-16">
+  <div class="container">
+    <div class="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
+      <div class="lg:col-span-4 md:col-span-6">
+        <div class="shadow dark:shadow-gray-700 p-6 rounded-md bg-white dark:bg-slate-900 sticky top-20">
+          <form>
+            <div class="grid grid-cols-1 gap-3">
+              <div>
+                <label for="searchname" class="font-semibold">Search Company</label>
+                <div class="relative mt-2">
+                  <i class="uil uil-search text-lg absolute top-[5px] start-3"></i>
+                  <input name="search" id="searchname" type="text" class="form-input border border-slate-100 dark:border-slate-800 ps-10" placeholder="Search">
                 </div>
-                <div class="mt-2 flex justify-between">
-                  <div class="flex items-center text-sm text-gray-500">
-                    <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" x-description="Heroicon name: mini/users" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path d="M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 18a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z"></path>
-                    </svg>
-                    <%= job.title %>
+              </div>
+              <div>
+                <label class="font-semibold">Categories</label>
+                <select class="form-select form-input border border-slate-100 dark:border-slate-800 block w-full mt-1">
+                  <option value="WD">Web Designer</option>
+                  <option value="WD">Web Developer</option>
+                  <option value="UI">UI / UX Desinger</option>
+                </select>
+              </div>
+              <div>
+                <label class="font-semibold">Location</label>
+                <select class="form-select form-input border border-slate-100 dark:border-slate-800 block w-full mt-1">
+                  <option value="NY">New York</option>
+                  <option value="MC">North Carolina</option>
+                  <option value="SC">South Carolina</option>
+                </select>
+              </div>
+              <div>
+                <label class="font-semibold">Job Types</label>
+                <div class="block mt-2">
+                  <div class="flex justify-between">
+                    <div class="inline-flex items-center mb-0">
+                      <input class="form-checkbox rounded border-gray-200 dark:border-gray-800 text-purple-600 focus:border-purple-300 focus:ring focus:ring-offset-0 focus:ring-purple-200 focus:ring-opacity-50 me-2" type="checkbox" value="" id="fulltime">
+                      <label class="form-checkbox-label text-slate-400" for="fulltime">Full Time</label>
+                    </div>
+                    <span class="bg-purple-600/10 text-purple-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">3</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <div class="inline-flex items-center mb-0">
+                      <input class="form-checkbox rounded border-gray-200 dark:border-gray-800 text-purple-600 focus:border-purple-300 focus:ring focus:ring-offset-0 focus:ring-purple-200 focus:ring-opacity-50 me-2" type="checkbox" value="" id="parttime">
+                      <label class="form-checkbox-label text-slate-400" for="parttime">Part Time</label>
+                    </div>
+                    <span class="bg-purple-600/10 text-purple-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">7</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <div class="inline-flex items-center mb-0">
+                      <input class="form-checkbox rounded border-gray-200 dark:border-gray-800 text-purple-600 focus:border-purple-300 focus:ring focus:ring-offset-0 focus:ring-purple-200 focus:ring-opacity-50 me-2" type="checkbox" value="" id="Freelancing">
+                      <label class="form-checkbox-label text-slate-400" for="Freelancing">Freelancing</label>
+                    </div>
+                    <span class="bg-purple-600/10 text-purple-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">4</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <div class="inline-flex items-center mb-0">
+                      <input class="form-checkbox rounded border-gray-200 dark:border-gray-800 text-purple-600 focus:border-purple-300 focus:ring focus:ring-offset-0 focus:ring-purple-200 focus:ring-opacity-50 me-2" type="checkbox" value="" id="fixedprice">
+                      <label class="form-checkbox-label text-slate-400" for="fixedprice">Fixed Price</label>
+                    </div>
+                    <span class="bg-purple-600/10 text-purple-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">6</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <div class="inline-flex items-center mb-0">
+                      <input class="form-checkbox rounded border-gray-200 dark:border-gray-800 text-purple-600 focus:border-purple-300 focus:ring focus:ring-offset-0 focus:ring-purple-200 focus:ring-opacity-50 me-2" type="checkbox" value="" id="Remote">
+                      <label class="form-checkbox-label text-slate-400" for="Remote">Remote</label>
+                    </div>
+                    <span class="bg-purple-600/10 text-purple-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">7</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <div class="inline-flex items-center mb-0">
+                      <input class="form-checkbox rounded border-gray-200 dark:border-gray-800 text-purple-600 focus:border-purple-300 focus:ring focus:ring-offset-0 focus:ring-purple-200 focus:ring-opacity-50 me-2" type="checkbox" value="" id="hourlybasis">
+                      <label class="form-checkbox-label text-slate-400" for="hourlybasis">Hourly Basis</label>
+                    </div>
+                    <span class="bg-purple-600/10 text-purple-600 text-xs px-2.5 py-0.5 font-semibold rounded-full h-5">44</span>
                   </div>
                 </div>
               </div>
-            </li>
+              <div>
+                <label class="font-semibold">Salary</label>
+                <div class="block mt-2">
+                  <div>
+                    <label class="inline-flex items-center">
+                      <input type="radio" class="form-radio border-gray-200 dark:border-gray-800 text-purple-600 focus:border-purple-300 focus:ring focus:ring-offset-0 focus:ring-purple-200 focus:ring-opacity-50 me-2" name="radio-colors" value="1" checked>
+                      <span class="text-slate-400">10k - 15k</span>
+                    </label>
+                  </div>
+                  <div>
+                    <label class="inline-flex items-center">
+                      <input type="radio" class="form-radio border-gray-200 dark:border-gray-800 text-purple-600 focus:border-purple-300 focus:ring focus:ring-offset-0 focus:ring-purple-200 focus:ring-opacity-50 me-2" name="radio-colors" value="1">
+                      <span class="text-slate-400">15k - 25k</span>
+                    </label>
+                  </div>
+                  <div>
+                    <label class="inline-flex items-center">
+                      <input type="radio" class="form-radio border-gray-200 dark:border-gray-800 text-purple-600 focus:border-purple-300 focus:ring focus:ring-offset-0 focus:ring-purple-200 focus:ring-opacity-50 me-2" name="radio-colors" value="1">
+                      <span class="text-slate-400">more than 25K</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <input type="submit" class="btn bg-purple-600 hover:bg-purple-700 border-purple-600 hover:border-purple-700 text-white rounded-md w-full" value="Apply Filter">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!--end col-->
+      <div class="lg:col-span-8 md:col-span-6">
+        <div class="grid grid-cols-1 gap-[30px]">
+          <% @jobs.each do |job| %>
+            <div class="group relative overflow-hidden bg-white dark:bg-slate-900 shadow hover:shadow-md dark:shadow-gray-700 dark:hover:shadow-gray-700 hover:-mt-2 rounded-md transition-all duration-500 h-fit">
+              <div class="p-6">
+                <div class="flex items-center">
+                  <div class="w-14 h-14 min-w-[56px] flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                    <img src="assets/images/company/facebook-logo.png" class="h-8 w-8"  alt="">
+                  </div>
+                  <div class="ms-3">
+                    <a href="job-detail-three.html" class="inline-block text-[16px] font-semibold hover:text-purple-600 transition-all duration-500 me-1"><%= job.title %></a>
+                    <span class="inline-block text-sm text-slate-400"><%= time_ago_in_words(job.created_at) %> ago</span>
+                    <div>
+                      <span class="bg-purple-600/10 inline-block text-purple-600 text-xs px-2.5 py-0.5 font-semibold rounded-full me-1"><%= job.job_type %></span>
+                      <span class="text-sm font-medium inline-block me-1">Min. Payscale: <span class="text-slate-400"><%= job.payscale_min %></span></span>
+                      <span class="text-sm font-medium inline-block me-1">Max. Payscale: <span class="text-slate-400"><%= job.payscale_min %></span></span>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-slate-400 py-3"><%= truncate(job.description, :length => 80 ).gsub(/\[.*?\]/, '') %></p>
+                <div>
+                  <span class="bg-slate-100 dark:bg-slate-800 inline-block text-slate-900 dark:text-slate-300 text-xs px-2.5 py-0.5 font-semibold rounded-full me-1">HTML</span>
+                  <span class="bg-slate-100 dark:bg-slate-800 inline-block text-slate-900 dark:text-slate-300 text-xs px-2.5 py-0.5 font-semibold rounded-full me-1">CSS</span>
+                  <span class="bg-slate-100 dark:bg-slate-800 inline-block text-slate-900 dark:text-slate-300 text-xs px-2.5 py-0.5 font-semibold rounded-full me-1">SASS</span>
+                  <span class="bg-slate-100 dark:bg-slate-800 inline-block text-slate-900 dark:text-slate-300 text-xs px-2.5 py-0.5 font-semibold rounded-full me-1">SCSS</span>
+                  <span class="bg-slate-100 dark:bg-slate-800 inline-block text-slate-900 dark:text-slate-300 text-xs px-2.5 py-0.5 font-semibold rounded-full me-1">Photoshop</span>
+                  <span class="bg-slate-100 dark:bg-slate-800 inline-block text-slate-900 dark:text-slate-300 text-xs px-2.5 py-0.5 font-semibold rounded-full me-1">Graphics</span>
+                  <span class="bg-slate-100 dark:bg-slate-800 inline-block text-slate-900 dark:text-slate-300 text-xs px-2.5 py-0.5 font-semibold rounded-full me-1">Bootstrap</span>
+                </div>
+              </div>
+              <div class="px-6 py-2 bg-slate-50 dark:bg-slate-800 lg:flex justify-between items-center">
+                <div class="lg:inline-block flex justify-between">
+
+                  <span class="inline-block me-1 text-slate-400"><i class="uil uil-map-marker text-[18px] text-slate-900 dark:text-white me-1"></i><%= job.location %></span>
+                </div>
+                <a href="<%= job.apply_url %>" class="btn btn-sm rounded-md bg-purple-600 hover:bg-purple-700 border-purple-600 hover:border-purple-700 text-white md:ms-2 w-full lg:w-auto lg:mt-0 mt-4" target="_blank">Apply Now</a>
+              </div>
+              <a href="" class="btn btn-icon rounded-full bg-purple-600/5 hover:bg-purple-600 border-purple-600/10 hover:border-purple-600 text-purple-600 hover:text-white absolute top-0 end-0 m-3"><i data-feather="bookmark" class="h-4 w-4"></i></a>
+            </div>
+            <!--end content-->
           <% end %>
-        <% end %>
-      </ul>
+        </div>
+        <!--end grid-->
+        <div class="grid md:grid-cols-12 grid-cols-1 mt-8">
+          <div class="md:col-span-12 text-center">
+            <nav aria-label="Page navigation example">
+              <ul class="inline-flex items-center -space-x-px">
+                <li>
+                  <a href="#" class="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 bg-white dark:bg-slate-900 rounded-s-3xl hover:text-white border border-gray-100 dark:border-gray-800 hover:border-purple-600 dark:hover:border-purple-600 hover:bg-purple-600 dark:hover:bg-purple-600">
+                    <i class="uil uil-angle-left text-[20px] rtl:rotate-180 rtl:-mt-1"></i>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 hover:text-white bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:border-purple-600 dark:hover:border-purple-600 hover:bg-purple-600 dark:hover:bg-purple-600">1</a>
+                </li>
+                <li>
+                  <a href="#" class="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 hover:text-white bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:border-purple-600 dark:hover:border-purple-600 hover:bg-purple-600 dark:hover:bg-purple-600">2</a>
+                </li>
+                <li>
+                  <a href="#" aria-current="page" class="z-10 w-[40px] h-[40px] inline-flex justify-center items-center text-white bg-purple-600 border border-purple-600">3</a>
+                </li>
+                <li>
+                  <a href="#" class="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 hover:text-white bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:border-purple-600 dark:hover:border-purple-600 hover:bg-purple-600 dark:hover:bg-purple-600">4</a>
+                </li>
+                <li>
+                  <a href="#" class="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 hover:text-white bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:border-purple-600 dark:hover:border-purple-600 hover:bg-purple-600 dark:hover:bg-purple-600">5</a>
+                </li>
+                <li>
+                  <a href="#" class="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 bg-white dark:bg-slate-900 rounded-e-3xl hover:text-white border border-gray-100 dark:border-gray-800 hover:border-purple-600 dark:hover:border-purple-600 hover:bg-purple-600 dark:hover:bg-purple-600">
+                    <i class="uil uil-angle-right text-[20px] rtl:rotate-180 rtl:-mt-1"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <!--end col-->
+        </div>
+        <!--end grid-->
+      </div>
     </div>
   </div>
-  <%= paginate @jobs %>
-</div>
+  <!--end container-->
+  <div class="container md:mt-24 mt-16">
+    <div class="grid grid-cols-1 pb-8 text-center">
+      <h3 class="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">Here's why you'll love it Jobstack</h3>
+      <p class="text-slate-400 max-w-xl mx-auto">Search all the open positions on the web. Get your own personalized salary estimate. Read reviews on over 30000+ companies worldwide.</p>
+    </div>
+    <!--end grid-->
+    <div class="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 mt-8 gap-[30px]">
+      <div class="group p-6 shadow dark:shadow-gray-700 rounded-md bg-white hover:bg-purple-600/5 dark:bg-slate-900 dark:hover:bg-purple-600/10 text-center transition-all duration-500">
+        <div class="w-16 h-16 flex items-center justify-center mx-auto bg-purple-600/5 group-hover:bg-purple-600 dark:bg-purple-600/10 dark:group-hover:bg-purple-600 shadow dark:shadow-gray-700 rounded-lg transition-all duration-500">
+          <i class="uil uil-phone text-[30px] text-purple-600 group-hover:text-white"></i>
+        </div>
+        <div class="mt-4">
+          <a href="" class="text-lg font-semibold hover:text-purple-600 transition-all duration-500">24/7 Support</a>
+          <p class="text-slate-400 mt-3 mb-2">Many desktop publishing now use and a search for job.</p>
+          <a href="" class="hover:text-purple-600 font-medium transition-all duration-500">Read More <i class="uil uil-arrow-right"></i></a>
+        </div>
+      </div>
+      <!--end content-->
+      <div class="group p-6 shadow dark:shadow-gray-700 rounded-md bg-white hover:bg-purple-600/5 dark:bg-slate-900 dark:hover:bg-purple-600/10 text-center transition-all duration-500">
+        <div class="w-16 h-16 flex items-center justify-center mx-auto bg-purple-600/5 group-hover:bg-purple-600 dark:bg-purple-600/10 dark:group-hover:bg-purple-600 shadow dark:shadow-gray-700 rounded-lg transition-all duration-500">
+          <i class="uil uil-atom text-[30px] text-purple-600 group-hover:text-white"></i>
+        </div>
+        <div class="mt-4">
+          <a href="" class="text-lg font-semibold hover:text-purple-600 transition-all duration-500">Tech & Startup Jobs</a>
+          <p class="text-slate-400 mt-3 mb-2">Many desktop publishing now use and a search for job.</p>
+          <a href="" class="hover:text-purple-600 font-medium transition-all duration-500">Read More <i class="uil uil-arrow-right"></i></a>
+        </div>
+      </div>
+      <!--end content-->
+      <div class="group p-6 shadow dark:shadow-gray-700 rounded-md bg-white hover:bg-purple-600/5 dark:bg-slate-900 dark:hover:bg-purple-600/10 text-center transition-all duration-500">
+        <div class="w-16 h-16 flex items-center justify-center mx-auto bg-purple-600/5 group-hover:bg-purple-600 dark:bg-purple-600/10 dark:group-hover:bg-purple-600 shadow dark:shadow-gray-700 rounded-lg transition-all duration-500">
+          <i class="uil uil-user-arrows text-[30px] text-purple-600 group-hover:text-white"></i>
+        </div>
+        <div class="mt-4">
+          <a href="" class="text-lg font-semibold hover:text-purple-600 transition-all duration-500">Quick & Easy</a>
+          <p class="text-slate-400 mt-3 mb-2">Many desktop publishing now use and a search for job.</p>
+          <a href="" class="hover:text-purple-600 font-medium transition-all duration-500">Read More <i class="uil uil-arrow-right"></i></a>
+        </div>
+      </div>
+      <!--end content-->
+      <div class="group p-6 shadow dark:shadow-gray-700 rounded-md bg-white hover:bg-purple-600/5 dark:bg-slate-900 dark:hover:bg-purple-600/10 text-center transition-all duration-500">
+        <div class="w-16 h-16 flex items-center justify-center mx-auto bg-purple-600/5 group-hover:bg-purple-600 dark:bg-purple-600/10 dark:group-hover:bg-purple-600 shadow dark:shadow-gray-700 rounded-lg transition-all duration-500">
+          <i class="uil uil-hourglass text-[30px] text-purple-600 group-hover:text-white"></i>
+        </div>
+        <div class="mt-4">
+          <a href="" class="text-lg font-semibold hover:text-purple-600 transition-all duration-500">Save Time</a>
+          <p class="text-slate-400 mt-3 mb-2">Many desktop publishing now use and a search for job.</p>
+          <a href="" class="hover:text-purple-600 font-medium transition-all duration-500">Read More <i class="uil uil-arrow-right"></i></a>
+        </div>
+      </div>
+      <!--end content-->
+    </div>
+    <!--end grid-->
+  </div>
+  <!--end container-->
+  <div class="container-fluid md:mt-24 mt-16">
+    <div class="container">
+      <div class="grid grid-cols-1">
+        <div class="relative overflow-hidden lg:px-8 px-6 py-10 rounded-xl shadow-lg dark:shadow-gray-700">
+          <div class="grid md:grid-cols-12 grid-cols-1 items-center gap-[30px]">
+            <div class="lg:col-span-8 md:col-span-7">
+              <div class="ltr:md:text-left rtl:md:text-right text-center relative z-1">
+                <h3 class="text-2xl font-semibold text-black dark:text-white mb-4">Explore a job now!</h3>
+                <p class="text-slate-400 max-w-xl">Search all the open positions on the web. Get your own personalized salary estimate. Read reviews on over 30000+ companies worldwide.</p>
+              </div>
+            </div>
+            <!--end col-->
+            <div class="lg:col-span-4 md:col-span-5">
+              <div class="ltr:text-right rtl:text-left relative z-1">
+                <a href="employer-detail.html" class="btn bg-purple-600 hover:bg-purple-700 border-purple-600 dark:border-purple-600 text-white rounded-md">Apply Now</a>
+                <a href="aboutus.html" class="btn bg-purple-600/5 hover:bg-purple-600 border-purple-600/10 hover:border-purple-600 text-purple-600 hover:text-white rounded-md ms-2">Learn More</a>
+              </div>
+            </div>
+            <!--end col-->
+          </div>
+          <!--end grid-->
+          <div class="absolute -top-5 -start-5">
+            <div class="uil uil-envelope lg:text-[150px] text-7xl text-black/5 dark:text-white/5 ltr:-rotate-45 rtl:rotate-45"></div>
+          </div>
+          <div class="absolute -bottom-5 -end-5">
+            <div class="uil uil-pen lg:text-[150px] text-7xl text-black/5 dark:text-white/5 rtl:-rotate-90"></div>
+          </div>
+        </div>
+      </div>
+      <!--end grid-->
+    </div>
+    <!--end container-->
+  </div>
+  <!--end container-->
+</section>
