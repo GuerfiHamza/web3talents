@@ -1,179 +1,80 @@
 <!-- Start Navbar -->
 <nav id="topnav" class="defaultscroll is-sticky">
-    <div class="container-fluid md:px-8 px-3">
-        <!-- Logo container-->
-        <a class="logo" href="index.html">
-            <div class="block sm:hidden">
-                <%= image_tag("logo-icon-40.png", class:"h-10 inline-block dark:hidden") %>
-                <%= image_tag("logo-icon-40-white.png", class:"h-10 hidden dark:inline-block") %>
-            </div>
-            <div class="sm:block hidden">
-
-                <%= image_tag("logo-dark.png", class:"h-[24px] inline-block dark:hidden") %>
-                <%= image_tag("logo-white.png", class:"h-[24px] hidden dark:inline-block") %>
-            </div>
+  <div class="container-fluid md:px-8 px-3">
+    <!-- Logo container-->
+    <%= link_to root_path, class:"logo" do %>
+      <div class="block sm:hidden">
+        <%= image_tag("logo-icon-40.png", class:"h-10 inline-block dark:hidden") %>
+        <%= image_tag("logo-icon-40-white.png", class:"h-10 hidden dark:inline-block") %>
+      </div>
+      <div class="sm:block hidden">
+        <%= image_tag("logo-dark.png", class:"h-[24px] inline-block dark:hidden") %>
+        <%= image_tag("logo-white.png", class:"h-[24px] hidden dark:inline-block") %>
+      </div>
+    <% end %>
+    <!-- End Logo container-->
+    <!-- Start Mobile Toggle -->
+    <div class="menu-extras">
+      <div class="menu-item">
+        <a class="navbar-toggle" id="isToggle" onclick="toggleMenu()">
+          <div class="lines">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </a>
-        <!-- End Logo container-->
-
-        <!-- Start Mobile Toggle -->
-        <div class="menu-extras">
-            <div class="menu-item">
-                <a class="navbar-toggle" id="isToggle" onclick="toggleMenu()">
-                    <div class="lines">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </a>
-            </div>
+      </div>
+    </div>
+    <!-- End Mobile Toggle -->
+    <!--Login button Start-->
+    <ul class="buy-button list-none mb-0">
+      <li class="inline-block mb-0">
+        <div class="relative top-[3px]">
+          <i class="uil uil-search text-lg absolute top-[3px] end-3"></i>
+          <input type="text" class="form-input h-9 pe-10 rounded-3xl sm:w-44 w-36 border-gray-100 dark:border-slate-800 bg-white dark:bg-slate-900" name="s" id="searchItem" placeholder="Search...">
         </div>
-        <!-- End Mobile Toggle -->
+      </li>
+      <% if !current_user %>
+      <li class="inline-block ps-1 mb-0">
+          <a href="<%= new_user_session_path %>" class="btn btn-icon rounded-full bg-purple-600 hover:bg-purple-700 border-purple-600 hover:border-purple-700 text-white" style="width: 10.25rem;">
+            <i class="uil uil-sign-in-alt"></i> Log in / Sign up
+          </a>
+        </li>
+        <% end %>
+      </ul>
+      <!--Login button End-->
+      <div id="navigation">
+        <!-- Navigation Menu-->
+        <ul class="navigation-menu justify-end">
 
-        <!--Login button Start-->
-        <ul class="buy-button list-none mb-0">
-            <li class="inline-block mb-0">
-                <div class="relative top-[3px]">
-                    <i class="uil uil-search text-lg absolute top-[3px] end-3"></i>
-                    <input type="text" class="form-input h-9 pe-10 rounded-3xl sm:w-44 w-36 border-gray-100 dark:border-slate-800 bg-white dark:bg-slate-900" name="s" id="searchItem" placeholder="Search...">
-                </div>
-            </li>
-            <li class="inline-block ps-1 mb-0">
-                <a href="" class="btn btn-icon rounded-full bg-purple-600 hover:bg-purple-700 border-purple-600 hover:border-purple-700 text-white">
-                <%= image_tag("team/05.jpg", class:"rounded-full") %>
-                </a>
-            </li>
+          <li><%= link_to "Home", root_path, class:"sub-menu-item"%></li>
+          <li><%= link_to "Jobs", jobs_path, class:"sub-menu-item"%></li>
+
+          <li><a href="contact.html" class="sub-menu-item">Contact</a></li>
+
+
+      <% if current_user %>
+
+        <li class=" has-submenu parent-menu-item">
+          <a href="javascript:void(0)" class="btn btn-icon rounded-full text-white" style="padding-right:0; padding-left:0; border:0">
+            <% if current_user.profile_picture.key.present? %>
+              <%= cl_image_tag current_user.profile_picture.key, height: 250,width:250, crop: :fill, class:" w-8 rounded-full" %>
+            <% else %>
+              <%= image_tag("https://res.cloudinary.com/dhufhm6ar/image/upload/v1687785983/Windows_10_Default_Profile_Picture.svg_uajtrb.png", class:"rounded-full") %>
+            <% end %>
+          </a>
+          <ul class="submenu">
+            <li><%= link_to "Dashboard", conversations_path, class:"sub-menu-item"%></li>
+            <li><%= link_to "Profile", edit_user_registration_path, class:"sub-menu-item"%></li>
+            <li><%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class:"sub-menu-item"%></li>
+          </ul>
+        </li>
+        <% end %>
         </ul>
-        <!--Login button End-->
-
-        <div id="navigation">
-            <!-- Navigation Menu-->
-            <ul class="navigation-menu justify-end">
-                <li class="has-submenu parent-menu-item">
-                    <a href="javascript:void(0)">Home</a><span class="menu-arrow"></span>
-                    <ul class="submenu">
-                        <li><a href="index.html" class="sub-menu-item">Hero One</a></li>
-                        <li><a href="index-two.html" class="sub-menu-item">Hero Two</a></li>
-                        <li><a href="index-three.html" class="sub-menu-item">Hero Three</a></li>
-                        <li><a href="index-four.html" class="sub-menu-item">Hero Four</a></li>
-                        <li><a href="index-five.html" class="sub-menu-item">Hero Five</a></li>
-                        <li><a href="index-six.html" class="sub-menu-item">Hero Six </a></li>
-                        <li><a href="index-seven.html" class="sub-menu-item">Hero Seven </a></li>
-                    </ul>
-                </li>
-
-                <li class="has-submenu parent-parent-menu-item"><a href="javascript:void(0)"> Jobs </a><span class="menu-arrow"></span>
-                    <ul class="submenu">
-                        <li><a href="job-categories.html" class="sub-menu-item">Job Categories</a></li>
-
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)"> Job Grids </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="job-grid-one.html" class="sub-menu-item">Job Grid One</a></li>
-                                <li><a href="job-grid-two.html" class="sub-menu-item">Job Grid Two</a></li>
-                                <li><a href="job-grid-three.html" class="sub-menu-item">Job Grid Three</a></li>
-                                <li><a href="job-grid-four.html" class="sub-menu-item">Job Grid Four </a></li>
-                            </ul>
-                        </li>
-
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)"> Job Lists </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="job-list-one.html" class="sub-menu-item">Job List One</a></li>
-                                <li><a href="job-list-two.html" class="sub-menu-item">Job List Two</a></li>
-                                <li><a href="job-list-three.html" class="sub-menu-item">Job List Three</a></li>
-                                <li><a href="job-list-four.html" class="sub-menu-item">Job List Four</a></li>
-                                <li><a href="job-list-five.html" class="sub-menu-item">Job List Five </a></li>
-                                <li><a href="job-list-six.html" class="sub-menu-item">Job List Six </a></li>
-                            </ul>
-                        </li>
-
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)"> Job Detail </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="job-detail-one.html" class="sub-menu-item">Job Detail One</a></li>
-                                <li><a href="job-detail-two.html" class="sub-menu-item">Job Detail Two</a></li>
-                                <li><a href="job-detail-three.html" class="sub-menu-item">Job Detail Three</a></li>
-                            </ul>
-                        </li>
-
-                        <li><a href="job-apply.html" class="sub-menu-item">Job Apply</a></li>
-
-                        <li><a href="job-post.html" class="sub-menu-item">Job Post </a></li>
-
-                        <li><a href="career.html" class="sub-menu-item">Career </a></li>
-                    </ul>
-                </li>
-
-                <li class="has-submenu parent-parent-menu-item">
-                    <a href="javascript:void(0)">Pages</a><span class="menu-arrow"></span>
-                    <ul class="submenu">
-                        <li><a href="aboutus.html" class="sub-menu-item">About Us</a></li>
-                        <li><a href="services.html" class="sub-menu-item">Services</a></li>
-                        <li><a href="pricing.html" class="sub-menu-item">Pricing </a></li>
-
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)">Employers</a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="employer-list.html" class="sub-menu-item">Employers</a></li>
-                                <li><a href="employer-detail.html" class="sub-menu-item">Employer Detail</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)">Candidates</a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="candidate-list.html" class="sub-menu-item">Candidates</a></li>
-                                <li><a href="candidate-detail.html" class="sub-menu-item">Candidate Detail</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="has-submenu parent-menu-item">
-                            <a href="javascript:void(0)"> Helpcenter </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="helpcenter-overview.html" class="sub-menu-item">Overview</a></li>
-                                <li><a href="helpcenter-faqs.html" class="sub-menu-item">FAQs</a></li>
-                                <li><a href="helpcenter-guides.html" class="sub-menu-item">Guides</a></li>
-                                <li><a href="helpcenter-support.html" class="sub-menu-item">Support</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="has-submenu parent-menu-item"><a href="javascript:void(0)"> Blog </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="blogs.html" class="sub-menu-item"> Blogs</a></li>
-                                <li><a href="blog-detail.html" class="sub-menu-item"> Blog Detail</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="has-submenu parent-menu-item"><a href="javascript:void(0)"> Auth Pages </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="login.html" class="sub-menu-item"> Login</a></li>
-                                <li><a href="signup.html" class="sub-menu-item"> Signup</a></li>
-                                <li><a href="reset-password.html" class="sub-menu-item"> Forgot Password</a></li>
-                                <li><a href="lock-screen.html" class="sub-menu-item"> Lock Screen</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="has-submenu parent-menu-item"><a href="javascript:void(0)"> Utility </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="terms.html" class="sub-menu-item">Terms of Services</a></li>
-                                <li><a href="privacy.html" class="sub-menu-item">Privacy Policy</a></li>
-                            </ul>
-                        </li>
-
-                        <li class="has-submenu parent-menu-item"><a href="javascript:void(0)"> Special </a><span class="submenu-arrow"></span>
-                            <ul class="submenu">
-                                <li><a href="comingsoon.html" class="sub-menu-item"> Coming Soon</a></li>
-                                <li><a href="maintenance.html" class="sub-menu-item"> Maintenance</a></li>
-                                <li><a href="error.html" class="sub-menu-item"> 404!</a></li>
-                                <li><a href="thankyou.html" class="sub-menu-item"> Thank you</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-
-                <li><a href="contact.html" class="sub-menu-item">Contact</a></li>
-            </ul><!--end navigation menu-->
-        </div><!--end navigation-->
-    </div><!--end container-->
-</nav><!--end header-->
-<!-- End Navbar -->
+        <!--end navigation menu-->
+      </div>
+      <!--end navigation-->
+    </div>
+    <!--end container-->
+  </nav><!--end header-->
+  <!-- End Navbar -->

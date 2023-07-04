@@ -7,17 +7,14 @@
 #   Character.create(name: "Luke", movie: movies.first)
 # delete all data from the database
 require "open-uri"
+require "json"
 
 JobApplication.destroy_all
-Comment.destroy_all
-# Connection.destroy_all
-# Event.destroy_all
-# Hashtag.destroy_all
+JobCategory.destroy_all
+Company.destroy_all
 Skill.destroy_all
 Experience.destroy_all
 Job.destroy_all
-Like.destroy_all
-Post.destroy_all
 User.destroy_all
 
 # make 20 users
@@ -324,77 +321,95 @@ random_banners = [
 # make 20 users
 
 puts "Creating users..."
-20.times do
+5.times do
   user = User.new(
-    username: Faker::Internet.username,
-    eth_address: Faker::Blockchain::Ethereum.address,
-    eth_nonce: Faker::Crypto.sha256,
+    email: Faker::Internet.email,
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
     headline: Faker::Quote.famous_last_words,
+    password: "123456",
     summary: Faker::Quote.famous_last_words,
     cover_picture: random_banners.sample,
-    job: random_jobs.sample,
     website: Faker::Internet.url,
     twitter: Faker::Internet.url,
     discord: Faker::Internet.url
   )
-  user.profile_picture.attach(io: URI.open("https://i.pravatar.cc/150?img=#{rand(1..60)}"), filename: "#{user.username}.png", content_type: 'image/png')
+  user.profile_picture.attach(io: URI.open("https://i.pravatar.cc/150?img=#{rand(1..60)}"), filename: "#{user.first_name}.png", content_type: 'image/png')
   user.save!
 end
-
 puts "Created #{User.count} users"
 
-# make 50 posts
+# let's retreive some companies from the api
 
-# 50.times do
-#   Post.create!(
-#     user_id: User.all.sample.id,
-#     body: Faker::Lorem.paragraph(sentence_count: 2, supplemental: true, random_sentences_to_add: 4)
-#   )
-# end
+url = "https://remote3.co/api/1.1/obj/company"
+response = URI.open(url).read
 
-# puts "Created #{Post.count} posts"
+json_comapnies = JSON.parse(response)
 
-# make 50 jobs
-
-50.times do
-  Job.create!(
-    user_id: User.all.sample.id,
-    title: Faker::Job.title,
-    company: Faker::Company.name,
-    twitter_link: Faker::Internet.url,
-    discord_invite: Faker::Internet.url,
-    description: Faker::Quote.famous_last_words,
-    chain: chain_list.sample,
+json_comapnies["response"]["results"].each do |company|
+  Company.create!(
+    name: company["name"],
+    bio: company["bio"],
+    slug: company["Slug"],
+    website: company["company-website"],
+    logo: company["logo"],
+    banner: company["banner"],
+    _id: company["_id"],
   )
 end
 
-puts "Created #{Job.count} jobs"
+puts "Created #{Company.count} companies"
 
-# generate some comments
+# let's retreive some job categories from the api
 
-# Post.all.each do |post|
-#   Comment.create!(
-#     user_id: User.all.sample.id,
-#     post_id: post.id,
-#     body: Faker::Lorem.paragraph(sentence_count: 1, supplemental: true, random_sentences_to_add: 2)
-#   )
-# end
+url = "https://remote3.co/api/1.1/obj/category"
+response = URI.open(url).read
+json_categories = JSON.parse(response)
 
-# puts "Created #{Comment.count} comments"
-
-# generate some applications
-
-Job.all.each do |job|
-  5.times do
-    JobApplication.create!(
-      user_id: User.all.sample.id,
-      job_id: job.id,
-      status: "pending"
-    )
-  end
+json_categories["response"]["results"].each do |category|
+  JobCategory.create!(
+    title: category["title"],
+    slug: category["Slug"],
+    index: category["index"],
+    _id: category["_id"]
+  )
 end
 
-puts "Created #{JobApplication.count} applications"
+puts "Created #{JobCategory.count} categories"
+# let's retreive some jobs from the api
+
+url = "https://remote3.co/api/1.1/obj/job"
+response = URI.open(url).read
+json_jobs = JSON.parse(response)
+json_jobs["response"]["results"].each do |job|
+  Job.create!(
+    title: job["job-title"],
+    description: job["job-description"],
+    location: job["job-location"],
+    job_type: job["job-type"],
+    slug: job["Slug"],
+    pay_in_crypto: job["pay_in_crypto"],
+    payscale_max: job["payscale-max"],
+    payscale_min: job["payscale-min"],
+    isWorldwide: job["isWorldwide"],
+    apply_url: job["apply-url"],
+    companies_id: Company.where(_id: job["company"]).first,
+    job_categories_id: JobCategory.where(_id: job["job-category"]).first
+  )
+end
+puts "Created #{Job.count} jobs"
+
+# Job.all.each do |job|
+#   5.times do
+#     JobApplication.create!(
+#       user_id: User.all.sample.id,
+#       job_id: job.id,
+#       status: "pending"
+#     )
+#   end
+# end
+
+# puts "Created #{JobApplication.count} applications"
 
 # generate some likes
 
