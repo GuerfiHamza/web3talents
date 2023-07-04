@@ -21,7 +21,7 @@ User.destroy_all
 
 require "faker"
 
-chain_list = ['Ethereum', 'Polygon', 'Solana', 'Binance Smart Chain', 'Avalanche', 'Fantom', 'Harmony', 'Kusama', 'Polkadot', 'Celo', 'Near', 'Tezos', 'Klaytn', 'Tron', 'Waves', 'EOS', 'Algorand', 'Stellar', 'Cardano', 'Other']
+chain_list = ["Ethereum", "Polygon", "Solana", "Binance Smart Chain", "Avalanche", "Fantom", "Harmony", "Kusama", "Polkadot", "Celo", "Near", "Tezos", "Klaytn", "Tron", "Waves", "EOS", "Algorand", "Stellar", "Cardano", "Other"]
 
 random_skills = [
   "Ruby",
@@ -133,7 +133,7 @@ random_skills = [
   "Apache Cassandra",
   "Apache CouchDB",
   "Apache",
-  "Couchbase"
+  "Couchbase",
 ]
 
 random_jobs = [
@@ -332,9 +332,9 @@ puts "Creating users..."
     cover_picture: random_banners.sample,
     website: Faker::Internet.url,
     twitter: Faker::Internet.url,
-    discord: Faker::Internet.url
+    discord: Faker::Internet.url,
   )
-  user.profile_picture.attach(io: URI.open("https://i.pravatar.cc/150?img=#{rand(1..60)}"), filename: "#{user.first_name}.png", content_type: 'image/png')
+  user.profile_picture.attach(io: URI.open("https://i.pravatar.cc/150?img=#{rand(1..60)}"), filename: "#{user.first_name}.png", content_type: "image/png")
   user.save!
 end
 puts "Created #{User.count} users"
@@ -371,7 +371,7 @@ json_categories["response"]["results"].each do |category|
     title: category["title"],
     slug: category["Slug"],
     index: category["index"],
-    _id: category["_id"]
+    _id: category["_id"],
   )
 end
 
@@ -381,21 +381,31 @@ puts "Created #{JobCategory.count} categories"
 url = "https://remote3.co/api/1.1/obj/job"
 response = URI.open(url).read
 json_jobs = JSON.parse(response)
-json_jobs["response"]["results"].each do |job|
-  Job.create!(
-    title: job["job-title"],
-    description: job["job-description"],
-    location: job["job-location"],
-    job_type: job["job-type"],
-    slug: job["Slug"],
-    pay_in_crypto: job["pay_in_crypto"],
-    payscale_max: job["payscale-max"],
-    payscale_min: job["payscale-min"],
-    isWorldwide: job["isWorldwide"],
-    apply_url: job["apply-url"],
-    companies_id: Company.where(_id: job["company"]).first,
-    job_categories_id: JobCategory.where(_id: job["job-category"]).first
-  )
+begin
+  json_jobs["response"]["results"].each do |job|
+    p "Creating a job for #{Company.where(_id: job["company"]).first.name}"
+    jobmaking = Job.new(
+      title: job["job-title"],
+      description: job["job-description"],
+      location: job["job-location"],
+      job_type: job["job-type"],
+      slug: job["Slug"],
+      pay_in_crypto: job["pay_in_crypto"],
+      payscale_max: job["payscale-max"],
+      payscale_min: job["payscale-min"],
+      isWorldwide: job["isWorldwide"],
+      apply_url: job["apply-url"],
+    )
+    p Company.where(_id: job["company"]).first
+    jobmaking.company  = Company.where(_id: job["company"]).first
+    job["job-category"].each do |category|
+      jobmaking.job_categories_id = JobCategory.where(_id: category).first
+    end
+    jobmaking.save!
+    p "Saved #{jobmaking.title}"
+  rescue Exception => e
+    p "Broken #{e}"
+  end
 end
 puts "Created #{Job.count} jobs"
 
@@ -429,7 +439,7 @@ User.all.each do |user|
   3.times do
     Skill.create!(
       user_id: user.id,
-      name: random_skills.sample
+      name: random_skills.sample,
     )
   end
 end
@@ -445,7 +455,7 @@ User.all.each do |user|
       title: random_experience.sample,
       company: Faker::Company.name,
       social_links: Faker::Internet.url,
-      description: Faker::Quote.famous_last_words
+      description: Faker::Quote.famous_last_words,
     )
   end
 end
