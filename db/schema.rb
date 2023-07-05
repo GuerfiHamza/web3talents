@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_03_180159) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_04_153301) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -144,11 +144,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_03_180159) do
     t.string "payscale_min"
     t.boolean "pay_in_crypto", default: false
     t.boolean "isWorldwide", default: false
-    t.bigint "companies_id"
+    t.bigint "company_id"
     t.bigint "job_categories_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["companies_id"], name: "index_jobs_on_companies_id"
+    t.index ["company_id"], name: "index_jobs_on_company_id"
     t.index ["job_categories_id"], name: "index_jobs_on_job_categories_id"
     t.index ["slug"], name: "index_jobs_on_slug", unique: true
   end
@@ -221,7 +221,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_03_180159) do
   add_foreign_key "feedbacks", "users"
   add_foreign_key "job_applications", "jobs"
   add_foreign_key "job_applications", "users"
-  add_foreign_key "jobs", "companies", column: "companies_id"
+  add_foreign_key "jobs", "companies"
+  add_foreign_key "jobs", "companies"
   add_foreign_key "jobs", "job_categories", column: "job_categories_id"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"

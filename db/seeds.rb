@@ -8,6 +8,7 @@
 # delete all data from the database
 require "open-uri"
 require "json"
+require 'pry'
 
 JobApplication.destroy_all
 JobCategory.destroy_all
@@ -383,7 +384,7 @@ response = URI.open(url).read
 json_jobs = JSON.parse(response)
 begin
   json_jobs["response"]["results"].each do |job|
-    p "Creating a job for #{Company.where(_id: job["company"]).first.name}"
+    p "Creating a job for #{Company.find_by(_id: job['company']).name}"
     jobmaking = Job.new(
       title: job["job-title"],
       description: job["job-description"],
@@ -396,13 +397,12 @@ begin
       isWorldwide: job["isWorldwide"],
       apply_url: job["apply-url"],
     )
-    p Company.where(_id: job["company"]).first
-    jobmaking.company  = Company.where(_id: job["company"]).first
+    jobmaking.company = Company.find_by(_id: job['company'])
     job["job-category"].each do |category|
       jobmaking.job_categories_id = JobCategory.where(_id: category).first
     end
     jobmaking.save!
-    p "Saved #{jobmaking.title}"
+    # p "Saved #{jobmaking.title}"
   rescue Exception => e
     p "Broken #{e}"
   end
