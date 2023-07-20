@@ -34,13 +34,13 @@
                         </div>
 
                         <div class="mt-4">
-                            <a href="" class="text-lg hover:text-emerald-600 font-semibold"> <%= company.name %> </a>
+                            <%= link_to company.name, company_path(company), class:"text-lg hover:text-emerald-600 font-semibold" %>
                             <p class="text-slate-400 mt-2"> <%= company.bio %> </p>
                         </div>
 
                         <div class="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700 flex justify-between">
                             <span class="text-slate-400"><i class="uil uil-map-marker"></i> Australia</span>
-                            <span class="block font-semibold text-emerald-600"><%= company.jobs.title %> Jobs</span>
+                            <span class="block font-semibold text-emerald-600"><%= company.jobs.count %> Jobs</span>
                         </div>
                     </div><!--end content-->
                 <% end %>
@@ -71,7 +71,8 @@
                                     <a href="#" class="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 hover:text-white bg-white dark:bg-slate-900 border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600">5</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="w-[40px] h-[40px] inline-flex justify-center items-center text-slate-400 bg-white dark:bg-slate-900 rounded-e-3xl hover:text-white border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600">
+                                    <a href="#" class="w-[40px] h-[40px] inline-flex justify-center items-ce
+                                    nter text-slate-400 bg-white dark:bg-slate-900 rounded-e-3xl hover:text-white border border-gray-100 dark:border-gray-800 hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600">
                                         <i class="uil uil-angle-right text-[20px] rtl:rotate-180 rtl:-mt-1"></i>
                                     </a>
                                 </li>

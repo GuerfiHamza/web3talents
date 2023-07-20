@@ -8,15 +8,15 @@
 # delete all data from the database
 require "open-uri"
 require "json"
-require 'pry'
+require "pry"
 
 JobApplication.destroy_all
 JobCategory.destroy_all
-Company.destroy_all
+# Company.destroy_all
 Skill.destroy_all
 Experience.destroy_all
 Job.destroy_all
-User.destroy_all
+# User.destroy_all
 
 # make 20 users
 
@@ -319,94 +319,120 @@ random_banners = [
   "https://images3.alphacoders.com/116/1163420.jpg",
 ]
 
-# make 20 users
+# # make 20 users
 
-puts "Creating users..."
-5.times do
-  user = User.new(
-    email: Faker::Internet.email,
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
-    headline: Faker::Quote.famous_last_words,
-    password: "123456",
-    summary: Faker::Quote.famous_last_words,
-    cover_picture: random_banners.sample,
-    website: Faker::Internet.url,
-    twitter: Faker::Internet.url,
-    discord: Faker::Internet.url,
-  )
-  user.profile_picture.attach(io: URI.open("https://i.pravatar.cc/150?img=#{rand(1..60)}"), filename: "#{user.first_name}.png", content_type: "image/png")
-  user.save!
-end
-puts "Created #{User.count} users"
+# puts "Creating users..."
+# 5.times do
+#   user = User.new(
+#     email: Faker::Internet.email,
+#     first_name: Faker::Name.first_name,
+#     last_name: Faker::Name.last_name,
+#     headline: Faker::Quote.famous_last_words,
+#     password: "123456",
+#     summary: Faker::Quote.famous_last_words,
+#     cover_picture: random_banners.sample,
+#     website: Faker::Internet.url,
+#     twitter: Faker::Internet.url,
+#     discord: Faker::Internet.url,
+#   )
+#   user.profile_picture.attach(io: URI.open("https://i.pravatar.cc/150?img=#{rand(1..60)}"), filename: "#{user.first_name}.png", content_type: "image/png")
+#   user.save!
+# end
+# puts "Created #{User.count} users"
 
 # let's retreive some companies from the api
 
-url = "https://remote3.co/api/1.1/obj/company"
-response = URI.open(url).read
 
-json_comapnies = JSON.parse(response)
+# for number in 0..300 do
+#   url = "https://remote3.co/api/1.1/obj/company?cursor=#{number}"
+#   response = URI.open(url).read
 
-json_comapnies["response"]["results"].each do |company|
-  Company.create!(
-    name: company["name"],
-    bio: company["bio"],
-    slug: company["Slug"],
-    website: company["company-website"],
-    logo: company["logo"],
-    banner: company["banner"],
-    _id: company["_id"],
-  )
-end
+#   json_companies = JSON.parse(response)
 
-puts "Created #{Company.count} companies"
+#   puts "Page number #{number}"
+#   begin
+#     json_companies["response"]["results"].each do |company|
+#       unless Company.exists?(slug: company["Slug"])
+#         Company.create!(
+#           name: company["name"],
+#           bio: company["bio"],
+#           slug: company["Slug"],
+#           website: company["company-website"],
+#           logo: company["logo"],
+#           banner: company["banner"],
+#           _id: company["_id"]
+#         )
+#       else
+#         puts "Skipping duplicate slug: #{company["Slug"]}"
+#       end
+#     end
+#   rescue Exception => e
+#     puts "Broken #{e}"
+#   end
+# end
+
+# puts "Created #{Company.count} companies"
 
 # let's retreive some job categories from the api
 
-url = "https://remote3.co/api/1.1/obj/category"
-response = URI.open(url).read
-json_categories = JSON.parse(response)
-
-json_categories["response"]["results"].each do |category|
-  JobCategory.create!(
-    title: category["title"],
-    slug: category["Slug"],
-    index: category["index"],
-    _id: category["_id"],
-  )
+for num in 0..23
+  url = "https://remote3.co/api/1.1/obj/category?cursor=#{num}"
+  response = URI.open(url).read
+  json_categories = JSON.parse(response)
+  puts "Page number #{num}"
+  json_categories["response"]["results"].each do |category|
+    unless JobCategory.exists?(slug: category["Slug"])
+      JobCategory.create!(
+        title: category["title"],
+        slug: category["Slug"],
+        index: category["index"],
+        _id: category["_id"]
+      )
+    else
+      puts "Skipping duplicate slug: #{category["Slug"]}"
+    end
+  end
 end
 
 puts "Created #{JobCategory.count} categories"
 # let's retreive some jobs from the api
 
-url = "https://remote3.co/api/1.1/obj/job"
-response = URI.open(url).read
-json_jobs = JSON.parse(response)
-begin
-  json_jobs["response"]["results"].each do |job|
-    p "Creating a job for #{Company.find_by(_id: job['company']).name}"
-    jobmaking = Job.new(
-      title: job["job-title"],
-      description: job["job-description"],
-      location: job["job-location"],
-      job_type: job["job-type"],
-      slug: job["Slug"],
-      pay_in_crypto: job["pay_in_crypto"],
-      payscale_max: job["payscale-max"],
-      payscale_min: job["payscale-min"],
-      isWorldwide: job["isWorldwide"],
-      apply_url: job["apply-url"],
-    )
-    jobmaking.company = Company.find_by(_id: job['company'])
-    job["job-category"].each do |category|
-      jobmaking.job_categories_id = JobCategory.where(_id: category).first
+for numb in 0..200
+  url = "https://remote3.co/api/1.1/obj/job?cursor=#{numb}"
+  response = URI.open(url).read
+  json_jobs = JSON.parse(response)
+  puts "page number #{numb}"
+  begin
+    json_jobs["response"]["results"].each do |job|
+      unless Job.exists?(slug: job["Slug"])
+        p "Creating a job for #{Company.find_by(_id: job["company"]).name}"
+        jobmaking = Job.new(
+          title: job["job-title"],
+          description: job["job-description"],
+          location: job["job-location"],
+          job_type: job["job-type"],
+          slug: job["Slug"],
+          pay_in_crypto: job["pay_in_crypto"],
+          payscale_max: job["payscale-max"],
+          payscale_min: job["payscale-min"],
+          isWorldwide: job["isWorldwide"],
+          apply_url: job["apply-url"]
+        )
+        jobmaking.company = Company.find_by(_id: job["company"])
+        job["job-category"].each do |category|
+          jobmaking.job_categories_id = JobCategory.where(_id: category).first
+        end
+        jobmaking.save!
+        # p "Saved #{jobmaking.title}"
+      else
+        puts "Skipping duplicate slug: #{job["Slug"]}"
+      end
     end
-    jobmaking.save!
-    # p "Saved #{jobmaking.title}"
   rescue Exception => e
-    p "Broken #{e}"
+    puts "Broken #{e}"
   end
 end
+
 puts "Created #{Job.count} jobs"
 
 # Job.all.each do |job|

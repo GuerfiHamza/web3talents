@@ -67,7 +67,7 @@ gem 'webpacker', '~> 5.0'
 gem 'ruby-bbcode'
 gem "autoprefixer-rails"
 gem 'pry', '~> 0.13.1'
-
+gem 'ruby-bbcode'
 gem "font-awesome-sass", "~> 6.1"
 gem "simple_form", github: "heartcombo/simple_form"
 group :development, :test do
