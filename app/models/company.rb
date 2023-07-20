@@ -6,5 +6,7 @@ class Company < ApplicationRecord
   has_many :job_applications, through: :jobs
   paginates_per 12
 
-
+  def job_count
+    Job.where(company_id: self.id).count
+  end
 end
